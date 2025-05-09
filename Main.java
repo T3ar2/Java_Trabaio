@@ -3,5 +3,6 @@ public class Main{
 /*TESTANDO-CHAN */
         /*RUBY CHAN!!! NANI GA SUKI?????*/
         /*HAIIIIIII, CHOKO MINTO, NARE MA NA ANATA!!*/
+        /*        Erick-chan é um Safado*/
     }
 }
