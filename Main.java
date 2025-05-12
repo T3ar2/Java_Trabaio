@@ -16,14 +16,14 @@ public class Main{
         do {
             System.out.println("\n=== Menu Primário ===");
             menu_chan.MontarMenu();
-            OpcaoUsuario = menu_chan.OpcaoEscolhida(1, 3, "Choose an option");
+            OpcaoUsuario = menu_chan.OpcaoEscolhida(1, 3, "Escolha uma opção: ");
 
             switch (OpcaoUsuario) {
                 case 1: // Customer Registration
-                    System.out.println("\n--- Customer Registration Submenu ---");
+                    System.out.println("\n--- Registro de Empresa ---");
                     menu_chan.MontarMenu(2, 1);
                     int opcao_selecao = menu_chan.OpcaoEscolhida(1, 5, "Choose an option");
-                    System.out.println("Option chosen in Customer Registration: " + opcao_selecao);
+                    System.out.println("Escolha uma opção: " + opcao_selecao);
                     if (opcao_selecao == 1){}
                     else if (opcao_selecao == 2) {}
                     else if (opcao_selecao == 3) {
