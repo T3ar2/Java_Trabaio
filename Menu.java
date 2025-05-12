@@ -36,21 +36,21 @@ public class Menu {
         }
     }
 
-    public int OpcaoEscolhida(int posIni, int posFim, String mensagem) { // Classe para ler a escolha do usuário, possuindo mensagens de erro para cada número digitado errado.
-        Scanner scanner = new Scanner(System.in);
+    public int OpcaoEscolhida(int posicao_inicial, int posicao_final, String mensagem) { // Classe para ler a escolha do usuário, possuindo mensagens de erro para cada número digitado errado.
+        Scanner scanner_chan = new Scanner(System.in);
         int opcao;
         while (true) {
-            System.out.print(mensagem + " (entre " + posIni + " e " + posFim + "): ");
-            if (scanner.hasNextInt()) {
-                opcao = scanner.nextInt();
-                if (opcao >= posIni && opcao <= posFim) {
-                    break; // Opção válida, sai do loop
+            System.out.print(mensagem + " (entre " + posicao_inicial + " e " + posicao_final + "): ");
+            if (scanner_chan.hasNextInt()) {
+                opcao = scanner_chan.nextInt();
+                if (opcao >= posicao_inicial && opcao <= posicao_final) {
+                    break;
                 } else {
-                    System.out.println("Erro: Opção inválida. Por favor, digite um valor entre " + posIni + " e " + posFim + ".");
+                    System.out.println("Erro: Opção inválida. Por favor, digite um valor entre " + posicao_inicial + " e " + posicao_final + ".");
                 }
             } else {
                 System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
-                scanner.next(); // Limpa a entrada inválida do scanner
+                scanner_chan.next(); // Limpa a entrada inválida do scanner
             }
         }
         return opcao;

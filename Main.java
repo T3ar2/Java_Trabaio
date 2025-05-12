@@ -5,49 +5,50 @@ import java.util.Scanner;
 
 public class Main{
     public static void main(String[] args) {
-/*TESTANDO-CHAN */
+        /*TESTANDO-CHAN */
         /*RUBY CHAN!!! NANI GA SUKI?????*/
         /*HAIIIIIII, CHOKO MINTO, NARE MA NA ANATA!!*/
         /*        Erick-chan é um Safado*/
-        Menu menu = new Menu();
-        Scanner scanner = new Scanner(System.in);
-        Pessoa pessoa = new Pessoa();
+        Menu menu_chan = new Menu();
+        Scanner scanner_chan = new Scanner(System.in);
+         Pessoa pessoa_chan = new Pessoa();
         int OpcaoUsuario;
         do {
-            System.out.println("\n--- Main Menu ---");
-            menu.MontarMenu();
-            OpcaoUsuario = menu.OpcaoEscolhida(1, 3, "Choose an option");
+            System.out.println("\n=== Menu Primário ===");
+            menu_chan.MontarMenu();
+            OpcaoUsuario = menu_chan.OpcaoEscolhida(1, 3, "Choose an option");
 
             switch (OpcaoUsuario) {
                 case 1: // Customer Registration
                     System.out.println("\n--- Customer Registration Submenu ---");
-                    menu.MontarMenu(2, 1);
-                    int customerOption = menu.OpcaoEscolhida(1, 5, "Choose an option");
-                    System.out.println("Option chosen in Customer Registration: " + customerOption);
-                    if (customerOption == 1){}
-                    else if (customerOption == 2) {}
-                    else if (customerOption == 3) {}
-                    else if  (customerOption == 4){
-                        pessoa.Cadastro_Cliente();
-                        pessoa.ImprimirCadastro();
+                    menu_chan.MontarMenu(2, 1);
+                    int opcao_selecao = menu_chan.OpcaoEscolhida(1, 5, "Choose an option");
+                    System.out.println("Option chosen in Customer Registration: " + opcao_selecao);
+                    if (opcao_selecao == 1){}
+                    else if (opcao_selecao == 2) {}
+                    else if (opcao_selecao == 3) {
+                        pessoa_chan.ExclusãoCliente();
                     }
-                    else if (customerOption == 5){}
+                    else if  (opcao_selecao == 4){
+                        pessoa_chan.Cadastro_Cliente();
+                        pessoa_chan.ImprimirCadastro();
+                    }
+                    else if (opcao_selecao == 5){}
                     else{}
                     break;
-                case 2: // Product Registration
-                    System.out.println("\n--- Product Registration Submenu ---");
-                    menu.MontarMenu(2, 2);
-                    int productOption = menu.OpcaoEscolhida(1, 5, "Choose an option");
-                    System.out.println("Option chosen in Product Registration: " + productOption);
+                case 2:
+                    System.out.println("\n=== Menu de Registro de Produto ===");
+                    menu_chan.MontarMenu(2, 2);
+                    int opcao_produto = menu_chan.OpcaoEscolhida(1, 5, "Escolha uma opção");
                     break;
-                case 3: // End
-                    System.out.println("Ending the program.");
+                case 3:
+                    System.out.println("Programa Fechando.");
                     break;
                 default:
-                    System.out.println("Invalid option."); // This shouldn't happen due to validation
+                    System.out.println("Opção inválida.");
             }
         } while (OpcaoUsuario != 3);
 
-        scanner.close();
+        scanner_chan.close();
     }
 }

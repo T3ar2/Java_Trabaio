@@ -43,6 +43,7 @@ public class Pessoa {
         scanner.nextLine(); //Tive que usar um novo scanner por que o java estava imprimindo o Tipo pessoa em cima do SetNome.
         System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
         setTipo_pessoa(scanner.nextLine());
+
     }
     public void ImprimirCadastro(){ //Impressão do cliente no arquivo "OutPut.txt".
             try (PrintWriter printwriter = new PrintWriter("Output.txt")) {
@@ -50,5 +51,21 @@ public class Pessoa {
             } catch (IOException e) {
                 System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
             }
+    }
+    public void ExclusãoCliente(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Selecione o Id do Cliente em que deseje apagar: ");
+        int selecao = scanner.nextInt();
+        if (selecao == id_pessoa){
+            id_pessoa = 0;
+            nome = "";
+            tipo_pessoa = "";
+            try (PrintWriter printwriter = new PrintWriter("Output.txt")) {
+                printwriter.println("Id: " + id_pessoa + ";" + "Nome: " + nome + ";" + "Tipo: " + tipo_pessoa + ".");
+            } catch (IOException e) {
+                System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
+            }
+        }
+
     }
 }
