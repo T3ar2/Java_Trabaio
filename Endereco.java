@@ -4,4 +4,5 @@ public class Endereco {
     private int endereco_numero;
     private String complemento;
     private String tipo_endereco; ///se é casa ou apartamento
+
 }
