@@ -1,11 +1,16 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 public class Pessoa {
     private int id_pessoa;
     private String nome;
     private String tipo_pessoa;
+    protected boolean positivo;
 
     Scanner scanner = new Scanner(System.in);
     public int getId_pessoa() {
@@ -32,40 +37,42 @@ public class Pessoa {
         this.tipo_pessoa = tipo_pessoa;
     }
 
+    public void setPositivo(boolean positivo) {
+        this.positivo = positivo;
+    }
 
     public void Cadastro_Cliente(){ //Cadastro do cliente no arquivo "OutPut.txt".
         Scanner scanner = new Scanner(System.in);
         System.out.println("Insira o ID do Cliente: ");
         setId_pessoa(scanner.nextInt());
-        scanner.nextLine();
         System.out.println("Insira o Nome do Cliente:");
         setNome(scanner.nextLine());
-        scanner.nextLine(); //Tive que usar um novo scanner por que o java estava imprimindo o Tipo pessoa em cima do SetNome.
+        scanner.nextLine();
+       // scanner.nextLine(); Tive que usar um novo scanner por que o java estava imprimindo o Tipo pessoa em cima do SetNome.
         System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
         setTipo_pessoa(scanner.nextLine());
-
+           /* if ((verificador_String == "Cliente") || (verificador_String == "Fornecedor") || (verificador_String == "Ambos") || (verificador_String == "cliente") || (verificador_String == "fornecedor") || (verificador_String == "ambos")){*/
     }
+
     public void ImprimirCadastro(){ //Impressão do cliente no arquivo "OutPut.txt".
-            try (PrintWriter printwriter = new PrintWriter("Output.txt")) {
-                printwriter.println("Id: " + id_pessoa + ";" + "Nome: " + nome + ";" + "Tipo: " + tipo_pessoa + ".");
-            } catch (IOException e) {
-                System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
-            }
-    }
-    public void ExclusãoCliente(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Selecione o Id do Cliente em que deseje apagar: ");
-        int selecao = scanner.nextInt();
-        if (selecao == id_pessoa){
-            id_pessoa = 0;
-            nome = "";
-            tipo_pessoa = "";
-            try (PrintWriter printwriter = new PrintWriter("Output.txt")) {
-                printwriter.println("Id: " + id_pessoa + ";" + "Nome: " + nome + ";" + "Tipo: " + tipo_pessoa + ".");
-            } catch (IOException e) {
-                System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
-            }
+        try (FileWriter fileWriter = new FileWriter("Output.txt", true);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            bufferedWriter.write("Id: " + id_pessoa + ";" + "Nome: " + nome + ";" + "Tipo: " + tipo_pessoa + ".");
+            bufferedWriter.newLine();
+        } catch (IOException e) {
+            System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
         }
-
     }
+
+    public void GravarCadastroLog(){
+        System.out.println(nome + " Cadastrado com sucesso, verifique o arquivo Output para visualizar seu cadastro. ");
+        try (FileWriter fileWriter = new FileWriter("Log.txt", true);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            bufferedWriter.write(nome + " Cadastrado com sucesso, verifique o arquivo Output para visualizar seu cadastro. ");
+            bufferedWriter.newLine();
+        } catch (IOException e) {
+            System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
+        }
+    }
+
 }

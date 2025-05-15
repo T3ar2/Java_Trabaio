@@ -1,1 +1,2 @@
-Id: 1;Nome: Luiz-chan;Tipo: gay.
+Id: 1;Nome: ;Tipo: gogoboy.
+Id: 2;Nome: ;Tipo: Gay.

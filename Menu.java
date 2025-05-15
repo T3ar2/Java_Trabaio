@@ -7,10 +7,10 @@ public class Menu {
     public void MontarMenu() { //classe para ler o arquivo "Menu1.txt" e imprimir os menus que estão escritos nele.
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("Menu1.txt"))) {
             String linha;
-            while ((linha = bufferedReader.readLine()) != null) {
-                String[] fields = linha.split(";");
-                if (fields.length == 4 && fields[0].trim().equals("1")) {
-                    System.out.println(fields[2].trim() + " - " + fields[3].trim());
+            while ((linha = bufferedReader.readLine()) != null) { /*Essa sequência, excluindo a terminação da linha, será armazenada em uma variável chamada linha.*/
+                String[] campos = linha.split(";"); /*Dentro do loop, para cada linha lida, esta linha a divide em várias partes (chamadas de "campos") usando o caractere*/
+                if (campos.length == 4 && campos[0].trim().equals("1")) { /*Esta condição verifica se a linha lida representa uma opção de menu que queremos exibir neste metodo*/
+                    System.out.println(campos[2].trim() + " - " + campos[3].trim());
                 }
             }
         } catch (IOException e) {
@@ -50,7 +50,7 @@ public class Menu {
                 }
             } else {
                 System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
-                scanner_chan.next(); // Limpa a entrada inválida do scanner
+                scanner_chan.next();
             }
         }
         return opcao;
