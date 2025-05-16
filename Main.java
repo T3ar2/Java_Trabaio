@@ -26,6 +26,7 @@ public class Main {
                     opcao_selecao = menu_chan.OpcaoEscolhida(1, 5, "Choose an option");
                     System.out.println("Escolha uma opção: " + opcao_selecao);
                     if (opcao_selecao == 1) {
+                        pessoa_chan.AtualizarCadastroCliente();
                     } else if (opcao_selecao == 2) {
                     } else if (opcao_selecao == 3) {
                     } else if (opcao_selecao == 4) {

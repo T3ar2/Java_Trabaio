@@ -75,4 +75,54 @@ public class Pessoa {
         }
     }
 
+    public void AtualizarCadastroCliente() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite o ID do cliente a ser atualizado: ");
+        int idBusca = scanner.nextInt();
+        scanner.nextLine(); // limpar o buffer
+
+        boolean encontrado = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("Output.txt"))) {
+            StringBuilder novoConteudo = new StringBuilder();
+            String linha;
+
+            while ((linha = reader.readLine()) != null) {
+                if (linha.startsWith("Id: " + idBusca + ";")) {
+                    encontrado = true;
+                    System.out.println("Cadastro atual: " + linha);
+
+                    System.out.print("Novo nome: ");
+                    String novoNome = scanner.nextLine();
+
+                    System.out.print("Novo tipo de pessoa: ");
+                    String novoTipo = scanner.nextLine();
+
+                    String novaLinha = "Id: " + idBusca + ";" + "Nome: " + novoNome + ";" + "Tipo: " + novoTipo + ".";
+                    novoConteudo.append(novaLinha).append("\n");
+                } else {
+                    novoConteudo.append(linha).append("\n");
+                }
+            }
+
+            if (encontrado) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Output.txt"))) {
+                    writer.write(novoConteudo.toString());
+                }
+
+                System.out.println("Cadastro atualizado com sucesso.");
+
+                try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                    logWriter.write("Cliente com ID " + idBusca + " atualizado com sucesso.");
+                    logWriter.newLine();
+                }
+            } else {
+                System.out.println("Cliente com ID " + idBusca + " não encontrado.");
+            }
+
+        } catch (IOException e) {
+            System.err.println("Erro ao atualizar cadastro: " + e.getMessage());
+        }
+    }
+
 }

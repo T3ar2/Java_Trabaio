@@ -1,0 +1,2 @@
+Id: 1;Nome: GuilhermeLovesTrump;Tipo: capitalista.
+Id: 2;Nome: ;Tipo: Gay.
