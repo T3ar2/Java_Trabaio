@@ -8,7 +8,7 @@ public class Main {
         /*TESTANDO-CHAN */
         /*RUBY CHAN!!! NANI GA SUKI?????*/
         /*HAIIIIIII, CHOKO MINTO, NARE MA NA ANATA!!*/
-        /*        Erick-chan é um Safado*/
+        /*Erick-chan é um Safado*/
         Menu menu_chan = new Menu();
         Scanner scanner_chan = new Scanner(System.in);
         Pessoa pessoa_chan = new Pessoa();
@@ -33,7 +33,9 @@ public class Main {
                         pessoa_chan.Cadastro_Cliente();
                         pessoa_chan.ImprimirCadastro();
                         pessoa_chan.GravarCadastroLog();
-                    } else if (opcao_selecao == 5) {
+
+                    }
+                         else if (opcao_selecao == 5) {
                     }
                     break;
                 case 2:

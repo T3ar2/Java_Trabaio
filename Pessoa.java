@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
     private int id_pessoa;
@@ -45,19 +47,20 @@ public class Pessoa {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Insira o ID do Cliente: ");
         setId_pessoa(scanner.nextInt());
+        scanner.nextLine();
         System.out.println("Insira o Nome do Cliente:");
         setNome(scanner.nextLine());
-        scanner.nextLine();
-       // scanner.nextLine(); Tive que usar um novo scanner por que o java estava imprimindo o Tipo pessoa em cima do SetNome.
+        scanner.nextLine(); /*Tive que usar um novo scanner por que o java estava imprimindo o Tipo pessoa em cima do SetNome*/
         System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
         setTipo_pessoa(scanner.nextLine());
-           /* if ((verificador_String == "Cliente") || (verificador_String == "Fornecedor") || (verificador_String == "Ambos") || (verificador_String == "cliente") || (verificador_String == "fornecedor") || (verificador_String == "ambos")){*/
+/*            if ((tipo_pessoa == "Cliente") || (tipo_pessoa == "Fornecedor") || (tipo_pessoa == "Ambos") || (tipo_pessoa == "cliente") || (tipo_pessoa == "fornecedor") || (tipo_pessoa == "ambos")){
+            }*/
     }
 
     public void ImprimirCadastro(){ //Impressão do cliente no arquivo "OutPut.txt".
         try (FileWriter fileWriter = new FileWriter("Output.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write("Id: " + id_pessoa + ";" + "Nome: " + nome + ";" + "Tipo: " + tipo_pessoa + ".");
+            bufferedWriter.write("Id: " + id_pessoa + ";" +"Nome: " + nome + ";" + "Tipo: " + tipo_pessoa + ".");
             bufferedWriter.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
@@ -65,10 +68,11 @@ public class Pessoa {
     }
 
     public void GravarCadastroLog(){
-        System.out.println(nome + " Cadastrado com sucesso, verifique o arquivo Output para visualizar seu cadastro. ");
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println( nome + "Cadastrado com sucesso, verifique o arquivo Output para visualizar seu cadastro. ");
         try (FileWriter fileWriter = new FileWriter("Log.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write(nome + " Cadastrado com sucesso, verifique o arquivo Output para visualizar seu cadastro. ");
+            bufferedWriter.write("["+ timestamp + "] " + nome + " Cadastrado com sucesso, verifique o arquivo Output para visualizar seu cadastro. ");
             bufferedWriter.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
@@ -113,11 +117,12 @@ public class Pessoa {
                 System.out.println("Cadastro atualizado com sucesso.");
 
                 try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
-                    logWriter.write("Cliente com ID " + idBusca + " atualizado com sucesso.");
+                    logWriter.write( " Cliente com ID " + idBusca + " atualizado com sucesso.");
                     logWriter.newLine();
                 }
             } else {
-                System.out.println("Cliente com ID " + idBusca + " não encontrado.");
+                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                System.out.println("["+ timestamp + "] " + "Cliente com ID " + idBusca + " não encontrado.");
             }
 
         } catch (IOException e) {
