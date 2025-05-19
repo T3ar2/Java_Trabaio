@@ -176,5 +176,47 @@ public class Pessoa {
             System.err.println("Erro ao consultar cadastro: " + e.getMessage());
         }
     }
+    public void ExcluirCadastroCliente() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite o ID do cliente a ser excluído: ");
+        int idBusca = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean encontrado = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("Output.txt"))) {
+            StringBuilder novoConteudo = new StringBuilder();
+            String linha;
+
+            while ((linha = reader.readLine()) != null) {
+                if (linha.startsWith("Id: " + idBusca + ";")) {
+                    encontrado = true;
+                    System.out.println("Cadastro encontrado e será excluído: " + linha);
+                } else {
+                    novoConteudo.append(linha).append("\n");
+                }
+            }
+
+            if (encontrado) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Output.txt"))) {
+                    writer.write(novoConteudo.toString());
+                }
+
+                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                System.out.println("Cadastro excluído com sucesso.");
+
+                try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                    logWriter.write("[" + timestamp + "] Cliente com ID " + idBusca + " excluído com sucesso.");
+                    logWriter.newLine();
+                }
+            } else {
+                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                System.out.println("[" + timestamp + "] Cliente com ID " + idBusca + " não encontrado.");
+            }
+
+        } catch (IOException e) {
+            System.err.println("Erro ao excluir cadastro: " + e.getMessage());
+        }
+    }
 
 }

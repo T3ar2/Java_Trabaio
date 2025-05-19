@@ -33,6 +33,7 @@ public class Main {
                                 pessoa_chan.ConsultarCliente();
                             break;
                             case 3:
+                                pessoa_chan.ExcluirCadastroCliente();
                             break;
                             case 4:
                                 pessoa_chan.Cadastro_Cliente();
