@@ -1,0 +1,3 @@
+[2025-05-19 08:52:06] nicollas Cadastrado. 
+[2025-05-19 08:56:37] usuário admin cadastrou Erick no banco de dados. 
+[2025-05-19 08:58:53] usuário admin atualizou o  cliente com ID 2 para 0

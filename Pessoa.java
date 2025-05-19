@@ -202,16 +202,16 @@ public class Pessoa {
                     writer.write(novoConteudo.toString());
                 }
 
-                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
                 System.out.println("Cadastro excluído com sucesso.");
 
                 try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
-                    logWriter.write("[" + timestamp + "] Cliente com ID " + idBusca + " excluído com sucesso.");
+                    String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    logWriter.write("[" + timestamp + "] Usuário admin excluiu a pessoa com o id " + idBusca + ".");
                     logWriter.newLine();
                 }
             } else {
-                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                System.out.println("[" + timestamp + "] Cliente com ID " + idBusca + " não encontrado.");
+                System.out.println("Cliente com ID " + idBusca + " não encontrado.");
             }
 
         } catch (IOException e) {
