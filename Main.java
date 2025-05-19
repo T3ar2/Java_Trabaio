@@ -28,6 +28,7 @@ public class Main {
                     if (opcao_selecao == 1) {
                         pessoa_chan.AtualizarCadastroCliente();
                     } else if (opcao_selecao == 2) {
+                        pessoa_chan.ConsultarCliente();
                     } else if (opcao_selecao == 3) {
                     } else if (opcao_selecao == 4) {
                         pessoa_chan.Cadastro_Cliente();

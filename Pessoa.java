@@ -129,5 +129,30 @@ public class Pessoa {
             System.err.println("Erro ao atualizar cadastro: " + e.getMessage());
         }
     }
+    public void ConsultarCliente() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite o ID do cliente a serconsultado: ");
+        int idBusca = scanner.nextInt();
+        scanner.nextLine();
+        boolean encontrado = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("Output.txt"))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                if (linha.startsWith("Id: " + idBusca + ";")) {
+                    System.out.println("Cliente encontrado:");
+                    System.out.println(linha);
+                    encontrado = true;
+                    break;
+                }
+            }
+
+            if (!encontrado) {
+                System.out.println("O cliente de ID " + idBusca + " não foi encontrado.");
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao consultar cadastro: " + e.getMessage());
+        }
+    }
 
 }
