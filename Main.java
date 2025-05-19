@@ -23,21 +23,29 @@ public class Main {
                 case 1: // Customer Registration
                     System.out.println("\n--- Registro de Empresa ---");
                     menu_chan.MontarMenu(2, 1);
-                    opcao_selecao = menu_chan.OpcaoEscolhida(1, 5, "Choose an option");
-                    System.out.println("Escolha uma opção: " + opcao_selecao);
-                    if (opcao_selecao == 1) {
-                        pessoa_chan.AtualizarCadastroCliente();
-                    } else if (opcao_selecao == 2) {
-                        pessoa_chan.ConsultarCliente();
-                    } else if (opcao_selecao == 3) {
-                    } else if (opcao_selecao == 4) {
-                        pessoa_chan.Cadastro_Cliente();
-                        pessoa_chan.ImprimirCadastro();
-                        pessoa_chan.GravarCadastroLog();
+                    opcao_selecao = menu_chan.OpcaoEscolhida(1, 5, "Escolha uma opção");
+                    System.out.println("Opção escolhida: " + opcao_selecao);
+                        switch (opcao_selecao) {
+                            case 1:
+                                pessoa_chan.AtualizarCadastroCliente();
+                            break;
+                            case 2:
+                                pessoa_chan.ConsultarCliente();
+                            break;
+                            case 3:
+                            break;
+                            case 4:
+                                pessoa_chan.Cadastro_Cliente();
+                                if (pessoa_chan.getPositivoid() == 1 && pessoa_chan.getPositivotipo() == 1) {
+                                    pessoa_chan.ImprimirCadastro();
+                                    pessoa_chan.GravarCadastroLog();
+                                }
+                                else {
+                                    System.out.println("Falha ao adicionar, insira um id ou um tipo válido");
+                                }
+                            break;
 
-                    }
-                         else if (opcao_selecao == 5) {
-                    }
+                        }
                     break;
                 case 2:
                     System.out.println("\n=== Menu de Registro de Produto ===");

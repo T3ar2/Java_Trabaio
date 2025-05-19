@@ -1,0 +1,2 @@
+Id: 1;Nome: nicollas;Tipo: cliente.
+Id: 2;Nome: Luiz;Tipo: fornecedor.

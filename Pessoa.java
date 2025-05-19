@@ -12,7 +12,8 @@ public class Pessoa {
     private int id_pessoa;
     private String nome;
     private String tipo_pessoa;
-    protected boolean positivo;
+    private int positivoid;
+    private int positivotipo;
 
     Scanner scanner = new Scanner(System.in);
     public int getId_pessoa() {
@@ -27,6 +28,14 @@ public class Pessoa {
         return tipo_pessoa;
     }
 
+    public int getPositivotipo() {
+        return positivotipo;
+    }
+
+    public int getPositivoid() {
+        return positivoid;
+    }
+
     public void setId_pessoa(int id_pessoa) {
         this.id_pessoa = id_pessoa;
     }
@@ -39,22 +48,34 @@ public class Pessoa {
         this.tipo_pessoa = tipo_pessoa;
     }
 
-    public void setPositivo(boolean positivo) {
-        this.positivo = positivo;
+    public void setPositivoid(int positivoid) {this.positivoid = positivoid;}
+
+    public void setPositivotipo(int positivotipo) {
+        this.positivotipo = positivotipo;
     }
 
     public void Cadastro_Cliente(){ //Cadastro do cliente no arquivo "OutPut.txt".
         Scanner scanner = new Scanner(System.in);
         System.out.println("Insira o ID do Cliente: ");
-        setId_pessoa(scanner.nextInt());
+        /*setId_pessoa(scanner.nextInt());*/
+        int verificadorInt = scanner.nextInt();
+        if (verificadorInt > 0 && verificadorInt <= 999999){
+        setId_pessoa(verificadorInt);
+        setPositivoid(1);
+        }
         scanner.nextLine();
         System.out.println("Insira o Nome do Cliente:");
         setNome(scanner.nextLine());
+        System.out.println("Aperte ENTER para confirmar. ");
         scanner.nextLine(); /*Tive que usar um novo scanner por que o java estava imprimindo o Tipo pessoa em cima do SetNome*/
         System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
-        setTipo_pessoa(scanner.nextLine());
-/*            if ((tipo_pessoa == "Cliente") || (tipo_pessoa == "Fornecedor") || (tipo_pessoa == "Ambos") || (tipo_pessoa == "cliente") || (tipo_pessoa == "fornecedor") || (tipo_pessoa == "ambos")){
-            }*/
+        String verificadorString = scanner.nextLine().toLowerCase();
+        System.out.println("Aperte ENTER para confirmar. ");/*Tive que usar um novo scanner por que o java estava finalizando sem inserir o tipo*/
+        scanner.nextLine();
+            if (verificadorString.contains("cliente") || verificadorString.contains("fornecedor") || verificadorString.contains("ambos")){
+                setTipo_pessoa(verificadorString);
+                setPositivotipo(1);
+            }
     }
 
     public void ImprimirCadastro(){ //Impressão do cliente no arquivo "OutPut.txt".
@@ -69,10 +90,10 @@ public class Pessoa {
 
     public void GravarCadastroLog(){
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        System.out.println( nome + "Cadastrado com sucesso, verifique o arquivo Output para visualizar seu cadastro. ");
+        System.out.println( nome + " Cadastrado com sucesso, verifique o arquivo Output para visualizar seu cadastro. ");
         try (FileWriter fileWriter = new FileWriter("Log.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write("["+ timestamp + "] " + nome + " Cadastrado com sucesso, verifique o arquivo Output para visualizar seu cadastro. ");
+            bufferedWriter.write("["+ timestamp + "] " + "usuário admin cadastrou "  + nome + " no banco de dados. ");
             bufferedWriter.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
@@ -117,12 +138,13 @@ public class Pessoa {
                 System.out.println("Cadastro atualizado com sucesso.");
 
                 try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
-                    logWriter.write( " Cliente com ID " + idBusca + " atualizado com sucesso.");
+                    String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    logWriter.write( "["+ timestamp + "] usuário admin atualizou o " + " cliente com ID " + idBusca + " para " + id_pessoa);
                     logWriter.newLine();
                 }
             } else {
-                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                System.out.println("["+ timestamp + "] " + "Cliente com ID " + idBusca + " não encontrado.");
+
+                System.out.println("Cliente com ID " + idBusca + " não encontrado.");
             }
 
         } catch (IOException e) {
@@ -131,7 +153,7 @@ public class Pessoa {
     }
     public void ConsultarCliente() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite o ID do cliente a serconsultado: ");
+        System.out.print("Digite o ID do cliente a ser consultado: ");
         int idBusca = scanner.nextInt();
         scanner.nextLine();
         boolean encontrado = false;
