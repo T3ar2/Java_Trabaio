@@ -5,10 +5,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        /*TESTANDO-CHAN */
-        /*RUBY CHAN!!! NANI GA SUKI?????*/
-        /*HAIIIIIII, CHOKO MINTO, NARE MA NA ANATA!!*/
-        /*Erick-chan é um Safado*/
         Menu menu_chan = new Menu();
         Scanner scanner_chan = new Scanner(System.in);
         Pessoa pessoa_chan = new Pessoa();
@@ -20,7 +16,7 @@ public class Main {
 
             int opcao_selecao;
             switch (OpcaoUsuario) {
-                case 1: // Customer Registration
+                case 1:
                     System.out.println("\n--- Registro de Empresa ---");
                     menu_chan.MontarMenu(2, 1);
                     opcao_selecao = menu_chan.OpcaoEscolhida(1, 5, "Escolha uma opção");

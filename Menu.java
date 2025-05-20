@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
-    public void MontarMenu() { //classe para ler o arquivo "Menu1.txt" e imprimir os menus que estão escritos nele.
+    public void MontarMenu() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("Menu1.txt"))) {
             String linha;
             while ((linha = bufferedReader.readLine()) != null) {
@@ -30,13 +30,11 @@ public class Menu {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error reading the menu.txt file: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            System.err.println("Error converting level or parent option to integer: " + e.getMessage());
+            System.err.println("Erro em ler  o Menu1.txt: " + e.getMessage());
         }
     }
 
-    public int OpcaoEscolhida(int posicao_inicial, int posicao_final, String mensagem) { // Classe para ler a escolha do usuário, possuindo mensagens de erro para cada número digitado errado.
+    public int OpcaoEscolhida(int posicao_inicial, int posicao_final, String mensagem) {
         Scanner scanner_chan = new Scanner(System.in);
         int opcao;
         while (true) {

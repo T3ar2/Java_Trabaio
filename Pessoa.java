@@ -54,15 +54,15 @@ public class Pessoa {
         this.positivotipo = positivotipo;
     }
 
-    public void Cadastro_Cliente(){ //Cadastro do cliente no arquivo "OutPut.txt".
+    public void Cadastro_Cliente(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Insira o ID do Cliente: ");
-        /*setId_pessoa(scanner.nextInt());*/
         int verificadorInt = scanner.nextInt();
         if (verificadorInt > 0 && verificadorInt <= 999999){
         setId_pessoa(verificadorInt);
         setPositivoid(1);
         }
+        System.out.println("Aperte ENTER para confirmar. ");
         scanner.nextLine();
         System.out.println("Insira o Nome do Cliente:");
         setNome(scanner.nextLine());
@@ -78,7 +78,7 @@ public class Pessoa {
             }
     }
 
-    public void ImprimirCadastro(){ //Impressão do cliente no arquivo "OutPut.txt".
+    public void ImprimirCadastro(){
         try (FileWriter fileWriter = new FileWriter("Output.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write("Id: " + id_pessoa + ";" +"Nome: " + nome + ";" + "Tipo: " + tipo_pessoa + ".");
@@ -139,7 +139,7 @@ public class Pessoa {
 
                 try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
                     String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                    logWriter.write( "["+ timestamp + "] usuário admin atualizou o " + " cliente com ID " + idBusca + " para " + id_pessoa);
+                    logWriter.write( "["+ timestamp + "] usuário admin atualizou o cliente com ID " + id_pessoa);
                     logWriter.newLine();
                 }
             } else {
@@ -165,8 +165,14 @@ public class Pessoa {
                     System.out.println("Cliente encontrado:");
                     System.out.println(linha);
                     encontrado = true;
+                    try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                        logWriter.write("[" + timestamp + "] Usuário admin consultou o cliente de id " + idBusca + ".");
+                        logWriter.newLine();
+                    }
                     break;
                 }
+                
             }
 
             if (!encontrado) {
@@ -175,7 +181,9 @@ public class Pessoa {
         } catch (IOException e) {
             System.err.println("Erro ao consultar cadastro: " + e.getMessage());
         }
+
     }
+
     public void ExcluirCadastroCliente() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o ID do cliente a ser excluído: ");
@@ -191,7 +199,6 @@ public class Pessoa {
             while ((linha = reader.readLine()) != null) {
                 if (linha.startsWith("Id: " + idBusca + ";")) {
                     encontrado = true;
-                    System.out.println("Cadastro encontrado e será excluído: " + linha);
                 } else {
                     novoConteudo.append(linha).append("\n");
                 }
