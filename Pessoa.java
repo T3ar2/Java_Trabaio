@@ -56,32 +56,34 @@ public class Pessoa {
 
     public void Cadastro_Cliente(){
         Scanner scanner = new Scanner(System.in);
+        Enderecos enderecos = new Enderecos();
         System.out.println("Insira o ID do Cliente: ");
         int verificadorInt = scanner.nextInt();
         if (verificadorInt > 0 && verificadorInt <= 999999){
         setId_pessoa(verificadorInt);
         setPositivoid(1);
         }
-        System.out.println("Aperte ENTER para confirmar. ");
-        scanner.nextLine();
+        Confirmar();
         System.out.println("Insira o Nome do Cliente:");
         setNome(scanner.nextLine());
-        System.out.println("Aperte ENTER para confirmar. ");
-        scanner.nextLine(); /*Tive que usar um novo scanner por que o java estava imprimindo o Tipo pessoa em cima do SetNome*/
+        Confirmar();
         System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
         String verificadorString = scanner.nextLine().toLowerCase();
-        System.out.println("Aperte ENTER para confirmar. ");/*Tive que usar um novo scanner por que o java estava finalizando sem inserir o tipo*/
-        scanner.nextLine();
+        Confirmar();
             if (verificadorString.contains("cliente") || verificadorString.contains("fornecedor") || verificadorString.contains("ambos")){
                 setTipo_pessoa(verificadorString);
                 setPositivotipo(1);
             }
+            enderecos.CadastroEndereco();
+
     }
 
     public void ImprimirCadastro(){
+        Enderecos enderecos = new Enderecos();
         try (FileWriter fileWriter = new FileWriter("Output.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write("Id: " + id_pessoa + ";" +"Nome: " + nome + ";" + "Tipo: " + tipo_pessoa + ".");
+            enderecos.ImprimirEndereco();
             bufferedWriter.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
@@ -225,5 +227,10 @@ public class Pessoa {
             System.err.println("Erro ao excluir cadastro: " + e.getMessage());
         }
     }
+
+    public void Confirmar(){
+        System.out.println("Aperte ENTER para confirmar. ");
+        scanner.nextLine();
+    };
 
 }

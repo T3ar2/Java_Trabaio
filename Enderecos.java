@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Enderecos {
@@ -53,8 +56,38 @@ public class Enderecos {
         int escolha = scanner.nextInt();
 
         for (int i = 0; i < escolha; i++){
+            Pessoa confirma = new Pessoa();
+            System.out.println("Insira o Cep: ");
+            setCep(scanner.nextInt());
+            confirma.Confirmar();
 
+            System.out.println("Insira o endereço (sem o número da casa): ");
+            setLogadouro(scanner.nextLine());
+            confirma.Confirmar();
+
+            System.out.println("Insira o número da casa: ");
+            setNumero(scanner.nextInt());
+            confirma.Confirmar();
+
+            System.out.println("Insira o complemento de seuendereço. Obs não é obrigatório: ");
+            setComplemento(scanner.nextLine());
+            confirma.Confirmar();
+
+            System.out.println("Insira o tipo de seu endereço(Comercial, Residencia, Entrega, correspondência e etc): ");
+            setTipopEndereco(scanner.nextLine());
+            confirma.Confirmar();
+
+            ImprimirEndereco();
         }
-
     }
-}
+    public void ImprimirEndereco() {
+        try (FileWriter fileWriter = new FileWriter("Output.txt");
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            bufferedWriter.write("CEP: " + cep + "; Logadouro: " + logadouro + "; Número: " + numero + "; Complemento: " + complemento + "; Tipo: " + tipopEndereco + ";");
+        } catch (IOException e) {
+            System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
+        }
+    }
+    }
+
+
