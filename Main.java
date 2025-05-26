@@ -16,7 +16,7 @@ public class Main {
 
             int opcao_selecao;
             switch (OpcaoUsuario) {
-                case 1:
+                case 1: // Customer Registration
                     System.out.println("\n--- Registro de Empresa ---");
                     menu_chan.MontarMenu(2, 1);
                     opcao_selecao = menu_chan.OpcaoEscolhida(1, 5, "Escolha uma opção");

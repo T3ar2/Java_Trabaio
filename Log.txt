@@ -23,3 +23,5 @@
 [2025-05-19 16:22:02] usuário admin atualizou o cliente com ID 1
 [2025-05-19 16:22:15] Usuário admin consultou o cliente de id 1.
 [2025-05-19 16:22:35] Usuário admin excluiu a pessoa com o id 1.
+[2025-05-20 18:54:36] usuário admin cadastrou gui no banco de dados. 
+[2025-05-20 18:54:46] Usuário admin consultou o cliente de id 1.

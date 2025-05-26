@@ -64,8 +64,10 @@ public class Pessoa {
         setPositivoid(1);
         }
         Confirmar();
+
         System.out.println("Insira o Nome do Cliente:");
-        setNome(scanner.nextLine());
+        String NomeAAA = scanner.nextLine();
+        setNome(NomeAAA);
         Confirmar();
         System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
         String verificadorString = scanner.nextLine().toLowerCase();
@@ -229,8 +231,8 @@ public class Pessoa {
     }
 
     public void Confirmar(){
-        System.out.println("Aperte ENTER para confirmar. ");
         scanner.nextLine();
+/*        System.out.println("Aperte ENTER para confirmar. ");*/
     };
 
 }
