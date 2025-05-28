@@ -115,6 +115,8 @@ public class Produto extends Pessoa{
         while (verificadorPrecoVenda != 1);
         ImprimirCadastro();
         GravarCadastroLog();
+        scannerInt.close();
+        scannerString.close();
     }
 
     @Override

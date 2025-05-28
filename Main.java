@@ -36,7 +36,7 @@ public class Main {
                                 pessoa_chan.Cadastro_Cliente();
                                 if (pessoa_chan.getPositivoid() == 1 && pessoa_chan.getPositivotipo() == 1) {
                                     pessoa_chan.ImprimirCadastro();
-                                    /*enderecos.CadastroEndereco();*/
+                                    enderecos.CadastroEndereco();
                                     pessoa_chan.GravarCadastroLog();
                                 }
                                 else {
