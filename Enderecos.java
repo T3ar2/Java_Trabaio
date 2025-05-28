@@ -3,16 +3,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Enderecos {
+public class Enderecos extends Pessoa{
     private int cep;
     private String logadouro;
     private int numero;
     private String complemento;
     private String tipopEndereco;
+    private int VerificadorTipo;
 
-    public void setCep(int cep) {
-        this.cep = cep;
-    }
+    public void setCep(int cep) {this.cep = cep;}
 
     public void setLogadouro(String logadouro) {
         this.logadouro = logadouro;
@@ -28,6 +27,10 @@ public class Enderecos {
 
     public void setTipopEndereco(String tipopEndereco) {
         this.tipopEndereco = tipopEndereco;
+    }
+
+    public void setVerificadorTipo(int verificadorTipo) {
+        VerificadorTipo = verificadorTipo;
     }
 
     public int getCep() {
@@ -69,23 +72,26 @@ public class Enderecos {
             setNumero(scanner.nextInt());
             confirma.Confirmar();
 
-            System.out.println("Insira o complemento de seuendereço. Obs não é obrigatório: ");
+            System.out.println("Insira o complemento de seu endereço. Obs não é obrigatório: ");
             setComplemento(scanner.nextLine());
             confirma.Confirmar();
 
-            System.out.println("Insira o tipo de seu endereço(Comercial, Residencia, Entrega, correspondência e etc): ");
-            setTipopEndereco(scanner.nextLine());
+            System.out.println("Insira o tipo de seu endereço(Comercial, Residencia, Entrega e correspondência): ");
+            String VerificarTipoEndereco = scanner.nextLine().toLowerCase();
             confirma.Confirmar();
+            if (VerificarTipoEndereco  == "comercial" && VerificarTipoEndereco  == "residencial" && VerificarTipoEndereco  == "entrega" && VerificarTipoEndereco  == "correspondência"){
+                setTipopEndereco(VerificarTipoEndereco);
+                setVerificadorTipo(1);
+            }
 
-            ImprimirEndereco();
-        }
-    }
-    public void ImprimirEndereco() {
-        try (FileWriter fileWriter = new FileWriter("Output.txt");
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write("CEP: " + cep + "; Logadouro: " + logadouro + "; Número: " + numero + "; Complemento: " + complemento + "; Tipo: " + tipopEndereco + ";");
-        } catch (IOException e) {
-            System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
+            try (FileWriter fileWriter = new FileWriter("EnderecoOutput.txt");
+                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+                bufferedWriter.write("Cliente Id: "+getId_pessoa() +"; CEP: " + cep + "; Logadouro: " + logadouro + "; Número: " + numero + "; Complemento: " + complemento + "; Tipo: " + tipopEndereco + ";");
+                bufferedWriter.newLine();
+            } catch (IOException e) {
+                System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
+            }
+
         }
     }
     }
