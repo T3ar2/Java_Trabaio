@@ -1,0 +1,1 @@
+Cliente Id: 0; CEP: 2222; Logadouro: test2; Número: 2; Complemento: ; Tipo: residencial;

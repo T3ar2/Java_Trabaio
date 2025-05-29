@@ -8,6 +8,7 @@ public class Main {
         Menu menu_chan = new Menu();
         Scanner scanner_chan = new Scanner(System.in);
         Pessoa pessoa_chan = new Pessoa();
+        Enderecos enderecos = new Enderecos();
         int OpcaoUsuario;
         do {
             System.out.println("\n=== Menu Primário ===");
@@ -35,11 +36,13 @@ public class Main {
                                 pessoa_chan.Cadastro_Cliente();
                                 if (pessoa_chan.getPositivoid() == 1 && pessoa_chan.getPositivotipo() == 1) {
                                     pessoa_chan.ImprimirCadastro();
+                                    enderecos.CadastroEndereco();
                                     pessoa_chan.GravarCadastroLog();
                                 }
                                 else {
                                     System.out.println("Falha ao adicionar, insira um id ou um tipo válido");
                                 }
+
                             break;
 
                         }
@@ -48,6 +51,20 @@ public class Main {
                     System.out.println("\n=== Menu de Registro de Produto ===");
                     menu_chan.MontarMenu(2, 2);
                     int opcao_produto = menu_chan.OpcaoEscolhida(1, 5, "Escolha uma opção");
+                    System.out.println("Opção escolhida: " + opcao_produto);
+                    Produto produto = new Produto();
+                        switch (opcao_produto){
+
+                            case 1:
+                            break;
+                            case 2:
+                            break;
+                            case 3:
+                            break;
+                            case 4:
+                                produto.CadastrarProduto();
+                            break;
+                        }
                     break;
                 case 3:
                     System.out.println("Programa Fechando.");

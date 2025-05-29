@@ -1,0 +1,6 @@
+Id: 1;Nome: Test;Tipo: cliente;
+Id: 2;Nome: Cleitin;Tipo: cliente;
+Id: 3;Nome: Cleiton;Tipo: fornecedor;
+Id: 5;Nome: a;Tipo: cliente;
+Id: 6;Nome: l;Tipo: cliente;
+Id: 4;Nome: rrr;Tipo: cliente;

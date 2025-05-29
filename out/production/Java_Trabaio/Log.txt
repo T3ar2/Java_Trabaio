@@ -23,5 +23,17 @@
 [2025-05-19 16:22:02] usuário admin atualizou o cliente com ID 1
 [2025-05-19 16:22:15] Usuário admin consultou o cliente de id 1.
 [2025-05-19 16:22:35] Usuário admin excluiu a pessoa com o id 1.
-[2025-05-20 18:54:36] usuário admin cadastrou gui no banco de dados. 
-[2025-05-20 18:54:46] Usuário admin consultou o cliente de id 1.
+[2025-05-27 00:29:07] usuário admin cadastrou  no banco de dados. 
+[2025-05-27 00:32:47] usuário admin cadastrou  no banco de dados. 
+[2025-05-27 00:34:10] usuário admin cadastrou  no banco de dados. 
+[2025-05-27 22:44:16] usuário admin cadastrou  no banco de dados. 
+[2025-05-27 22:47:32] usuário admin cadastrou  no banco de dados. 
+[2025-05-27 23:16:51] usuário admin cadastrou  no banco de dados. 
+[2025-05-28 16:56:34] usuário admin cadastrou o produto  no banco de dados. 
+[2025-05-28 16:58:23] usuário admin cadastrou o produto  no banco de dados. 
+[2025-05-28 17:15:04] usuário admin cadastrou o produto Desodorante no banco de dados. 
+[2025-05-28 17:17:42] usuário admin cadastrou o produto Garrafa no banco de dados. 
+[2025-05-28 17:19:57] usuário admin cadastrou o produto Bom dia no banco de dados. 
+[2025-05-28 17:20:57] usuário admin cadastrou o produto Test2 no banco de dados. 
+[2025-05-28 17:23:25] usuário admin cadastrou Test no banco de dados. 
+[2025-05-28 17:49:56] usuário admin cadastrou rrr no banco de dados. 

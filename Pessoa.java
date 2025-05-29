@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
-import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -55,10 +54,11 @@ public class Pessoa {
     }
 
     public void Cadastro_Cliente(){
-        Scanner scanner = new Scanner(System.in);
-        Enderecos enderecos = new Enderecos();
+        Scanner scannerint = new Scanner(System.in);
+        Scanner scannerString = new Scanner(System.in);
         System.out.println("Insira o ID do Cliente: ");
         int verificadorInt = scanner.nextInt();
+
         if (verificadorInt > 0 && verificadorInt <= 999999){
         setId_pessoa(verificadorInt);
         setPositivoid(1);
@@ -66,26 +66,25 @@ public class Pessoa {
         Confirmar();
 
         System.out.println("Insira o Nome do Cliente:");
-        String NomeAAA = scanner.nextLine();
-        setNome(NomeAAA);
+        String N = scannerString.nextLine();
+        setNome(N);
         Confirmar();
+
+
         System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
-        String verificadorString = scanner.nextLine().toLowerCase();
+        String verificadorString = scannerString.nextLine().toLowerCase();
         Confirmar();
             if (verificadorString.contains("cliente") || verificadorString.contains("fornecedor") || verificadorString.contains("ambos")){
                 setTipo_pessoa(verificadorString);
                 setPositivotipo(1);
             }
-            enderecos.CadastroEndereco();
-
     }
 
     public void ImprimirCadastro(){
-        Enderecos enderecos = new Enderecos();
-        try (FileWriter fileWriter = new FileWriter("Output.txt", true);
+
+        try (FileWriter fileWriter = new FileWriter("OutputPesoas.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write("Id: " + id_pessoa + ";" +"Nome: " + nome + ";" + "Tipo: " + tipo_pessoa + ".");
-            enderecos.ImprimirEndereco();
+            bufferedWriter.write("Id: " + id_pessoa + ";" +"Nome: " + nome + ";" + "Tipo: " + tipo_pessoa + ";");
             bufferedWriter.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
@@ -112,7 +111,7 @@ public class Pessoa {
 
         boolean encontrado = false;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("Output.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputPesoas.txt"))) {
             StringBuilder novoConteudo = new StringBuilder();
             String linha;
 
@@ -135,7 +134,7 @@ public class Pessoa {
             }
 
             if (encontrado) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Output.txt"))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputPesoas.txt"))) {
                     writer.write(novoConteudo.toString());
                 }
 
@@ -162,7 +161,7 @@ public class Pessoa {
         scanner.nextLine();
         boolean encontrado = false;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("Output.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputPesoas.txt"))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 if (linha.startsWith("Id: " + idBusca + ";")) {
@@ -196,7 +195,7 @@ public class Pessoa {
 
         boolean encontrado = false;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("Output.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputPesoas.txt"))) {
             StringBuilder novoConteudo = new StringBuilder();
             String linha;
 
@@ -209,7 +208,7 @@ public class Pessoa {
             }
 
             if (encontrado) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Output.txt"))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputPesoas.txt"))) {
                     writer.write(novoConteudo.toString());
                 }
 
@@ -231,8 +230,9 @@ public class Pessoa {
     }
 
     public void Confirmar(){
-        scanner.nextLine();
-/*        System.out.println("Aperte ENTER para confirmar. ");*/
+        Scanner ConfirmarScanner = new Scanner(System.in);
+        System.out.println("Aperte ENTER para confirmar. ");
+        ConfirmarScanner.nextLine();
     };
 
 }

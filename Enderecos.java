@@ -1,20 +1,19 @@
 import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class Enderecos {
+public class Enderecos extends Pessoa{
     private int cep;
     private String logadouro;
     private int numero;
     private String complemento;
-    private String tipopEndereco;
+    private String tipoEndereco;
+    private int VerificadorTipoEndereco;
 
-    public void setCep(int cep) {
-        this.cep = cep;
-    }
+    public void setCep(int cep) {this.cep = cep;}
 
     public void setLogadouro(String logadouro) {
         this.logadouro = logadouro;
@@ -28,8 +27,12 @@ public class Enderecos {
         this.complemento = complemento;
     }
 
-    public void setTipopEndereco(String tipopEndereco) {
-        this.tipopEndereco = tipopEndereco;
+    public void setTipoEndereco(String tipoEndereco) {
+        this.tipoEndereco = tipoEndereco;
+    }
+
+    public void setVerificadorTipoEndereco(int verificadorTipoEndereco) {
+        VerificadorTipoEndereco = verificadorTipoEndereco;
     }
 
     public int getCep() {
@@ -48,79 +51,75 @@ public class Enderecos {
         return complemento;
     }
 
-    public String getTipopEndereco() {
-        return tipopEndereco;
+    public String getTipoEndereco() {
+        return tipoEndereco;
     }
 
-    public void CadastroEndereco() {
-        Scanner scanner = new Scanner(System.in);
+    public void CadastroEndereco(){
+        Scanner scannerInt = new Scanner(System.in);
+        Scanner scannerString = new Scanner(System.in);
         System.out.println("Quantos endereços você precisa inserir? ");
         int escolha = scanner.nextInt();
 
-        for (int i = 0; i < escolha; i++) {
+        for (int i = 0; i < escolha; i++){
             Pessoa confirma = new Pessoa();
             System.out.println("Insira o Cep: ");
-            setCep(scanner.nextInt());
+            setCep(scannerInt.nextInt());
             confirma.Confirmar();
 
             System.out.println("Insira o endereço (sem o número da casa): ");
-            setLogadouro(scanner.nextLine());
+            setLogadouro(scannerString.nextLine());
             confirma.Confirmar();
 
             System.out.println("Insira o número da casa: ");
-            setNumero(scanner.nextInt());
+            setNumero(scannerInt.nextInt());
             confirma.Confirmar();
 
-            System.out.println("Insira o complemento de seuendereço. Obs não é obrigatório: ");
-            setComplemento(scanner.nextLine());
+            System.out.println("Insira o complemento de seu endereço. Obs não é obrigatório: ");
+            setComplemento(scannerString.nextLine());
             confirma.Confirmar();
 
-            System.out.println("Insira o tipo de seu endereço(Comercial, Residencia, Entrega, correspondência e etc): ");
-            setTipopEndereco(scanner.nextLine());
-            confirma.Confirmar();
+            do {
+                System.out.println("Insira o tipo de seu endereço(Comercial, Residencial, Entrega e correspondência): ");
+                String VerificarTipoEndereco = scannerString.nextLine().toLowerCase();
+                confirma.Confirmar();
+                if (VerificarTipoEndereco.contains("comercial")  || VerificarTipoEndereco.contains("residencial")  || VerificarTipoEndereco.contains("entrega")  || VerificarTipoEndereco.contains("correspondência")){
+                    setTipoEndereco(VerificarTipoEndereco);
+                    setVerificadorTipoEndereco(1);
+                }
+                else{
+                    System.out.println("Tipo de endereço inserido incorretamente, Tente de novo.");}
+            }
+            while(VerificadorTipoEndereco != 1);
 
-            ImprimirEndereco();
         }
+        ImprimirCadastro();
+        GravarCadastroLog();
+        scannerInt.close();
+        scannerString.close();
     }
-
-    public void ImprimirEndereco() {
-        try (FileWriter fileWriter = new FileWriter("Output.txt");
+    @Override
+    public void ImprimirCadastro(){
+        try (FileWriter fileWriter = new FileWriter("EnderecoOutput.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write("CEP: " + cep + "; Logadouro: " + logadouro + "; Número: " + numero + "; Complemento: " + complemento + "; Tipo: " + tipopEndereco + ";");
+            bufferedWriter.write("Cliente Id: "+ getId_pessoa() +"; CEP: " + cep + "; Logadouro: " + logadouro + "; Número: " + numero + "; Complemento: " + complemento + "; Tipo: " + tipoEndereco + ";");
+            bufferedWriter.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
         }
     }
-
-    public void AtualizarEndereco() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Digite o Id que deseja alterar o endereço:");
-        int idBusca = scanner.nextInt();
-        scanner.nextLine();
-
-        boolean encontrado = false;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("Output.txt"))) {
-            StringBuilder novoConteudo = new StringBuilder();
-            String linha;
-
-            while ((linha = reader.readLine()) != null) {
-                if (linha.startsWith("Id: " + idBusca + ";")) {
-                    encontrado = true;
-                    System.out.println("Endereço encontrato: \nCEP: " + cep + ";\n Logadouro: " + logadouro + ";\n Número: " + numero + "; \n Complemento: " + complemento + ";\n Tipo: " + tipopEndereco + ";");
-                    System.out.println("O que deseja alterar?");
-
-                }
-            }
-
-            if (!encontrado) {
-                System.out.println("Nenhum endereço encontrado atrelado ao" + idBusca + ".");
-            }
+    @Override
+    public void GravarCadastroLog(){
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println("Endereço "+ tipoEndereco + " Cadastrado com sucesso, verifique o arquivo EnderecoOutput para visualizar seu cadastro. ");
+        try (FileWriter fileWriter = new FileWriter("Log.txt", true);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            bufferedWriter.write("["+ timestamp + "] " + "usuário admin cadastrou endereço "  + tipoEndereco + " no banco de dados.");
+            bufferedWriter.newLine();
         } catch (IOException e) {
-            System.err.println("Erro ao atualizar cadastro: " + e.getMessage());
-        }
+            System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
         }
     }
-
+}
 
 
