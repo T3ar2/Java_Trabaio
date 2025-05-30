@@ -39,3 +39,18 @@
 [2025-05-28 17:49:56] usuário admin cadastrou rrr no banco de dados. 
 [2025-05-28 17:59:43] usuário admin cadastrou endereço residencial no banco de dados.
 [2025-05-28 17:59:43] usuário admin cadastrou a no banco de dados. 
+[2025-05-30 12:51:36] usuário admin cadastrou endereço residencial no banco de dados.
+[2025-05-30 12:51:36] usuário admin cadastrou 1 no banco de dados. 
+[2025-05-30 12:59:34] usuário admin cadastrou endereço residencial no banco de dados.
+[2025-05-30 12:59:34] usuário admin cadastrou m no banco de dados. 
+[2025-05-30 13:07:17] usuário admin cadastrou endereço residencial no banco de dados.
+[2025-05-30 13:07:17] usuário admin cadastrou aaaa no banco de dados. 
+[2025-05-30 16:35:32] usuário admin cadastrou endereço residencial no banco de dados.
+[2025-05-30 16:35:32] usuário admin cadastrou AAAAAAAAAAAA no banco de dados. 
+[2025-05-30 18:37:00] usuário admin cadastrou endereço residencial  no banco de dados.
+[2025-05-30 18:37:00] usuário admin cadastrou cliente no banco de dados. 
+[2025-05-30 18:41:07] usuário admin cadastrou endereço residencial no banco de dados.
+[2025-05-30 19:12:53] usuário admin cadastrou endereço residencial no banco de dados.
+[2025-05-30 19:12:53] usuário admin cadastrou 4 no banco de dados. 
+[2025-05-30 20:06:23] usuário admin cadastrou endereço residencial no banco de dados.
+[2025-05-30 20:06:24] usuário admin cadastrou  no banco de dados. 
