@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
-    private int id_pessoa;
+    protected int id_pessoa;
     private String nome;
     private String tipo_pessoa;
     private int positivoid;
@@ -54,30 +54,36 @@ public class Pessoa {
     }
 
     public void Cadastro_Cliente(){
-        Scanner scannerint = new Scanner(System.in);
-        Scanner scannerString = new Scanner(System.in);
-        System.out.println("Insira o ID do Cliente: ");
+        Enderecos endereco = new Enderecos();
+
+        System.out.print("Insira o ID do Cliente: ");
         int verificadorInt = scanner.nextInt();
 
         if (verificadorInt > 0 && verificadorInt <= 999999){
         setId_pessoa(verificadorInt);
         setPositivoid(1);
         }
+        scanner.nextLine();
         Confirmar();
 
         System.out.println("Insira o Nome do Cliente:");
-        String N = scannerString.nextLine();
+        String N = scanner.nextLine();
         setNome(N);
         Confirmar();
 
+        do {
+            System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
+            String verificadorString = scanner.nextLine().toLowerCase();
+            Confirmar();
+                if (verificadorString.contains("cliente") || verificadorString.contains("fornecedor") || verificadorString.contains("ambos")){
+                    setTipo_pessoa(verificadorString);
+                    setPositivotipo(1);
+                }
+        }
+        while(positivotipo != 1);
+            endereco.CadastroEndereco();
+            ImprimirCadastro();
 
-        System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
-        String verificadorString = scannerString.nextLine().toLowerCase();
-        Confirmar();
-            if (verificadorString.contains("cliente") || verificadorString.contains("fornecedor") || verificadorString.contains("ambos")){
-                setTipo_pessoa(verificadorString);
-                setPositivotipo(1);
-            }
     }
 
     public void ImprimirCadastro(){
@@ -230,9 +236,9 @@ public class Pessoa {
     }
 
     public void Confirmar(){
-        Scanner ConfirmarScanner = new Scanner(System.in);
+        /*Scanner ConfirmarScanner = new Scanner(System.in);*/
         System.out.println("Aperte ENTER para confirmar. ");
-        ConfirmarScanner.nextLine();
-    };
+        scanner.nextLine();
+    }
 
 }

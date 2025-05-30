@@ -76,7 +76,7 @@ public class Produto extends Pessoa{
                 Confirmar();
                 setVerificadorIdProduto(1);
             } else
-                System.out.println("Id inserido incorretamente.Por favor, ensira um número válido.");
+                System.out.println("Id inserido incorretamente.Por favor, insira um número válido.");
         }
         while (verificadorIdProduto != 1);
 

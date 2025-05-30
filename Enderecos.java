@@ -56,53 +56,52 @@ public class Enderecos extends Pessoa{
     }
 
     public void CadastroEndereco(){
-        Scanner scannerInt = new Scanner(System.in);
-        Scanner scannerString = new Scanner(System.in);
+
         System.out.println("Quantos endereços você precisa inserir? ");
         int escolha = scanner.nextInt();
+        scanner.nextLine();
 
         for (int i = 0; i < escolha; i++){
             Pessoa confirma = new Pessoa();
             System.out.println("Insira o Cep: ");
-            setCep(scannerInt.nextInt());
+            setCep(scanner.nextInt());
+            scanner.nextLine();
             confirma.Confirmar();
 
             System.out.println("Insira o endereço (sem o número da casa): ");
-            setLogadouro(scannerString.nextLine());
+            setLogadouro(scanner.nextLine());
             confirma.Confirmar();
 
             System.out.println("Insira o número da casa: ");
-            setNumero(scannerInt.nextInt());
+            setNumero(scanner.nextInt());
+            scanner.nextLine();
             confirma.Confirmar();
 
             System.out.println("Insira o complemento de seu endereço. Obs não é obrigatório: ");
-            setComplemento(scannerString.nextLine());
+            setComplemento(scanner.nextLine());
             confirma.Confirmar();
 
             do {
                 System.out.println("Insira o tipo de seu endereço(Comercial, Residencial, Entrega e correspondência): ");
-                String VerificarTipoEndereco = scannerString.nextLine().toLowerCase();
+                String End = scanner.nextLine().toLowerCase();
                 confirma.Confirmar();
-                if (VerificarTipoEndereco.contains("comercial")  || VerificarTipoEndereco.contains("residencial")  || VerificarTipoEndereco.contains("entrega")  || VerificarTipoEndereco.contains("correspondência")){
-                    setTipoEndereco(VerificarTipoEndereco);
+                if (End.contains("comercial")  || End.contains("residencial")  || End.contains("entrega")  || End.contains("correspondência")){
+                    setTipoEndereco(End);
                     setVerificadorTipoEndereco(1);
                 }
                 else{
                     System.out.println("Tipo de endereço inserido incorretamente, Tente de novo.");}
             }
             while(VerificadorTipoEndereco != 1);
-
+            ImprimirCadastro();
+            GravarCadastroLog();
         }
-        ImprimirCadastro();
-        GravarCadastroLog();
-        scannerInt.close();
-        scannerString.close();
     }
     @Override
     public void ImprimirCadastro(){
         try (FileWriter fileWriter = new FileWriter("EnderecoOutput.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write("Cliente Id: "+ getId_pessoa() +"; CEP: " + cep + "; Logadouro: " + logadouro + "; Número: " + numero + "; Complemento: " + complemento + "; Tipo: " + tipoEndereco + ";");
+            bufferedWriter.write("Cliente Id: "+ id_pessoa +"; CEP: " + cep + "; Logadouro: " + logadouro + "; Número: " + numero + "; Complemento: " + complemento + "; Tipo: " + tipoEndereco + ";");
             bufferedWriter.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
