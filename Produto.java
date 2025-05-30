@@ -65,12 +65,11 @@ public class Produto extends Pessoa{
 
     public void CadastrarProduto(){
 
-        Scanner scannerInt = new Scanner(System.in);
-        Scanner scannerString = new Scanner(System.in);
         do {
 
             System.out.print("iD do Produto: ");
-            int num = scannerInt.nextInt();
+            int num = scanner.nextInt();
+            scanner.nextLine();
             if (num > 0 && num < 999999) {
                 setIdProduto(num);
                 Confirmar();
@@ -81,16 +80,17 @@ public class Produto extends Pessoa{
         while (verificadorIdProduto != 1);
 
         System.out.print("Nome do produto: ");
-        setNomeProduto(scannerString.nextLine());
+        setNomeProduto(scanner.nextLine());
         Confirmar();
 
         System.out.print("Descrição: ");
-        setDescricao(scannerString.nextLine());
+        setDescricao(scanner.nextLine());
         Confirmar();
 
         do {
             System.out.print("Custo: R$");
             double preco = scanner.nextDouble();
+            scanner.nextLine();
             if (preco > 0) {
                 setCusto(preco);
                 Confirmar();
@@ -104,6 +104,7 @@ public class Produto extends Pessoa{
         do {
             System.out.print("Venda: R$");
             double preco2 = scanner.nextDouble();
+            scanner.nextLine();
             if (preco2 > 0) {
                 setPrecoVenda(preco2);
                 Confirmar();
@@ -115,8 +116,6 @@ public class Produto extends Pessoa{
         while (verificadorPrecoVenda != 1);
         ImprimirCadastro();
         GravarCadastroLog();
-        scannerInt.close();
-        scannerString.close();
     }
 
     @Override

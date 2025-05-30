@@ -1,7 +1,0 @@
-Id: 1;Nome: m;Tipo: cliente;
-Id: 1;Nome: aaaa;Tipo: cliente;
-Id: 1;Nome: AAAAAAAAAAAA;Tipo: cliente;
-Id: 1;Nome: cliente;Tipo: cliente;
-Id: 2;Nome: ;Tipo: null;
-Id: 2;Nome: 4;Tipo: cliente;
-Id: 1;Nome: ;Tipo: cliente;

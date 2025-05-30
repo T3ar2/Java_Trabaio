@@ -1,0 +1,2 @@
+Id: 1Nome: aaaa;Descrição: aawdadaw;Custo: R$1123.0;Preço de Venda: R$123.0
+Id: 1Nome: aaaaaa;Descrição: asda;Custo: R$123.0;Preço de Venda: R$22.0
