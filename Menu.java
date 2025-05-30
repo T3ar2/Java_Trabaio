@@ -32,8 +32,8 @@ public class Menu {
         }
     }
 
-    public int OpcaoEscolhida(Scanner scanner_chan, int posicao_inicial, int posicao_final, String mensagem) {
-
+    public int OpcaoEscolhida(int posicao_inicial, int posicao_final, String mensagem) {
+        Scanner scanner_chan = new Scanner(System.in);
         int opcao;
         while (true) {
             System.out.print(mensagem + " (entre " + posicao_inicial + " e " + posicao_final + "): ");

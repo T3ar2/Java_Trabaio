@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
-    protected int id_pessoa;
+    private int id_pessoa;
     private String nome;
     private String tipo_pessoa;
     private int positivoid;
@@ -53,37 +53,41 @@ public class Pessoa {
         this.positivotipo = positivotipo;
     }
 
-    public void Cadastro_Cliente(){
-        Enderecos endereco = new Enderecos();
+    private String extrairEnderecoExistente(String linha, String campo) {
+        int inicio = linha.indexOf(campo + ":");
+        if (inicio == -1) return "";
 
-        System.out.print("Insira o ID do Cliente: ");
+        int fim = linha.indexOf(";", inicio);
+        if (fim == -1) fim = linha.length();
+
+        return linha.substring(inicio + campo.length() + 1, fim).trim();
+    }
+
+    public void Cadastro_Cliente(){
+        Scanner scannerint = new Scanner(System.in);
+        Scanner scannerString = new Scanner(System.in);
+        System.out.println("Insira o ID do Cliente: ");
         int verificadorInt = scanner.nextInt();
 
         if (verificadorInt > 0 && verificadorInt <= 999999){
         setId_pessoa(verificadorInt);
         setPositivoid(1);
         }
-        scanner.nextLine();
         Confirmar();
 
         System.out.println("Insira o Nome do Cliente:");
-        String N = scanner.nextLine();
+        String N = scannerString.nextLine();
         setNome(N);
         Confirmar();
 
-        do {
-            System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
-            String verificadorString = scanner.nextLine().toLowerCase();
-            Confirmar();
-                if (verificadorString.contains("cliente") || verificadorString.contains("fornecedor") || verificadorString.contains("ambos")){
-                    setTipo_pessoa(verificadorString);
-                    setPositivotipo(1);
-                }
-        }
-        while(positivotipo != 1);
-            endereco.CadastroEndereco();
-            ImprimirCadastro();
 
+        System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
+        String verificadorString = scannerString.nextLine().toLowerCase();
+        Confirmar();
+            if (verificadorString.contains("cliente") || verificadorString.contains("fornecedor") || verificadorString.contains("ambos")){
+                setTipo_pessoa(verificadorString);
+                setPositivotipo(1);
+            }
     }
 
     public void ImprimirCadastro(){
@@ -111,55 +115,114 @@ public class Pessoa {
 
     public void AtualizarCadastroCliente() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite o ID do cliente a ser atualizado: ");
+        System.out.print("Digite o ID do cliente que deseja atualizar: ");
         int idBusca = scanner.nextInt();
-        scanner.nextLine(); // limpar o buffer
+        scanner.nextLine(); // consumir quebra de linha
 
         boolean encontrado = false;
+        StringBuilder novoConteudo = new StringBuilder();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("OutputPesoas.txt"))) {
-            StringBuilder novoConteudo = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputCliente.txt"))) {
             String linha;
 
             while ((linha = reader.readLine()) != null) {
                 if (linha.startsWith("Id: " + idBusca + ";")) {
                     encontrado = true;
-                    System.out.println("Cadastro atual: " + linha);
+                    System.out.println("Cliente encontrado: " + linha);
 
-                    System.out.print("Novo nome: ");
+                    System.out.print("Digite o novo nome do cliente: ");
                     String novoNome = scanner.nextLine();
 
-                    System.out.print("Novo tipo de pessoa: ");
+                    System.out.print("Digite o novo tipo (Física ou Jurídica): ");
                     String novoTipo = scanner.nextLine();
 
-                    String novaLinha = "Id: " + idBusca + ";" + "Nome: " + novoNome + ";" + "Tipo: " + novoTipo + ".";
+                    String novaLinha = "Id: " + idBusca + ";Nome: " + novoNome + ";Tipo: " + novoTipo + ";";
                     novoConteudo.append(novaLinha).append("\n");
+
+                    try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                        logWriter.write("[" + timestamp + "] usuário admin alterou os dados do cliente ID " + idBusca + ".");
+                        logWriter.newLine();
+                    }
+
                 } else {
                     novoConteudo.append(linha).append("\n");
                 }
             }
 
             if (encontrado) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputPesoas.txt"))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputCliente.txt"))) {
                     writer.write(novoConteudo.toString());
                 }
 
-                System.out.println("Cadastro atualizado com sucesso.");
+                System.out.println("Cadastro atualizado com sucesso!");
 
-                try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
-                    String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                    logWriter.write( "["+ timestamp + "] usuário admin atualizou o cliente com ID " + id_pessoa);
-                    logWriter.newLine();
+                System.out.print("Deseja alterar o(s) endereço(s) do cliente? (s/n): ");
+                String alterarEndereco = scanner.nextLine().trim().toLowerCase();
+
+                if (alterarEndereco.equals("s")) {
+                    System.out.print("Deseja alterar qual endereço? (1, 2 ou ambos): ");
+                    String escolhaEndereco = scanner.nextLine().trim();
+
+                    try (BufferedReader readerEndereco = new BufferedReader(new FileReader("Endereco.txt"))) {
+                        StringBuilder novoEnderecoConteudo = new StringBuilder();
+                        boolean enderecoEncontrado = false;
+
+                        String linhaEndereco;
+                        while ((linhaEndereco = readerEndereco.readLine()) != null) {
+                            if (linhaEndereco.startsWith("IdPessoa: " + idBusca + ";")) {
+                                enderecoEncontrado = true;
+                                String endereco1 = "", endereco2 = "";
+
+                                if (escolhaEndereco.equals("1") || escolhaEndereco.equalsIgnoreCase("ambos")) {
+                                    System.out.print("Novo endereço 1: ");
+                                    endereco1 = scanner.nextLine();
+                                } else {
+                                    endereco1 = extrairEnderecoExistente(linhaEndereco, "Endereco1");
+                                }
+
+                                if (escolhaEndereco.equals("2") || escolhaEndereco.equalsIgnoreCase("ambos")) {
+                                    System.out.print("Novo endereço 2: ");
+                                    endereco2 = scanner.nextLine();
+                                } else {
+                                    endereco2 = extrairEnderecoExistente(linhaEndereco, "Endereco2");
+                                }
+
+                                String novaLinhaEndereco = "IdPessoa: " + idBusca + ";Endereco1: " + endereco1 + ";Endereco2: " + endereco2 + ";";
+                                novoEnderecoConteudo.append(novaLinhaEndereco).append("\n");
+                            } else {
+                                novoEnderecoConteudo.append(linhaEndereco).append("\n");
+                            }
+                        }
+
+                        if (enderecoEncontrado) {
+                            try (BufferedWriter writerEndereco = new BufferedWriter(new FileWriter("Endereco.txt"))) {
+                                writerEndereco.write(novoEnderecoConteudo.toString());
+                            }
+
+                            try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                                logWriter.write("[" + timestamp + "] usuário admin alterou o endereço do cliente ID " + idBusca + ".");
+                                logWriter.newLine();
+                            }
+
+                            System.out.println("Endereço(s) atualizado(s) com sucesso.");
+                        } else {
+                            System.out.println("Endereço para o cliente de ID " + idBusca + " não encontrado.");
+                        }
+                    } catch (IOException e) {
+                        System.err.println("Erro ao atualizar o(s) endereço(s): " + e.getMessage());
+                    }
                 }
-            } else {
 
+            } else {
                 System.out.println("Cliente com ID " + idBusca + " não encontrado.");
             }
-
         } catch (IOException e) {
-            System.err.println("Erro ao atualizar cadastro: " + e.getMessage());
+            System.err.println("Erro ao ler o arquivo: " + e.getMessage());
         }
     }
+
     public void ConsultarCliente() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o ID do cliente a ser consultado: ");
@@ -236,9 +299,9 @@ public class Pessoa {
     }
 
     public void Confirmar(){
-        /*Scanner ConfirmarScanner = new Scanner(System.in);*/
+        Scanner ConfirmarScanner = new Scanner(System.in);
         System.out.println("Aperte ENTER para confirmar. ");
-        scanner.nextLine();
-    }
+        ConfirmarScanner.nextLine();
+    };
 
 }

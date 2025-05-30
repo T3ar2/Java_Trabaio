@@ -6,21 +6,21 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Menu menu_chan = new Menu();
-        Scanner scanner = new Scanner(System.in);
-        /*Scanner scanner_chan = new Scanner(System.in);*/
+        Scanner scanner_chan = new Scanner(System.in);
         Pessoa pessoa_chan = new Pessoa();
+        Enderecos enderecos = new Enderecos();
         int OpcaoUsuario;
         do {
             System.out.println("\n=== Menu Primário ===");
             menu_chan.MontarMenu();
-            OpcaoUsuario = menu_chan.OpcaoEscolhida(scanner,1, 3, "Escolha uma opção: ");
+            OpcaoUsuario = menu_chan.OpcaoEscolhida(1, 3, "Escolha uma opção: ");
 
             int opcao_selecao;
             switch (OpcaoUsuario) {
                 case 1: // Customer Registration
                     System.out.println("\n--- Registro de Empresa ---");
                     menu_chan.MontarMenu(2, 1);
-                    opcao_selecao = menu_chan.OpcaoEscolhida(scanner ,1, 5, "Escolha uma opção");
+                    opcao_selecao = menu_chan.OpcaoEscolhida(1, 5, "Escolha uma opção");
                     System.out.println("Opção escolhida: " + opcao_selecao);
                         switch (opcao_selecao) {
                             case 1:
@@ -35,7 +35,8 @@ public class Main {
                             case 4:
                                 pessoa_chan.Cadastro_Cliente();
                                 if (pessoa_chan.getPositivoid() == 1 && pessoa_chan.getPositivotipo() == 1) {
-
+                                    pessoa_chan.ImprimirCadastro();
+                                    enderecos.CadastroEndereco();
                                     pessoa_chan.GravarCadastroLog();
                                 }
                                 else {
@@ -49,12 +50,13 @@ public class Main {
                 case 2:
                     System.out.println("\n=== Menu de Registro de Produto ===");
                     menu_chan.MontarMenu(2, 2);
-                    int opcao_produto = menu_chan.OpcaoEscolhida(scanner,1, 5, "Escolha uma opção");
+                    int opcao_produto = menu_chan.OpcaoEscolhida(1, 5, "Escolha uma opção");
                     System.out.println("Opção escolhida: " + opcao_produto);
                     Produto produto = new Produto();
                         switch (opcao_produto){
 
                             case 1:
+                                produto.AlterarProduto();
                             break;
                             case 2:
                             break;
@@ -73,6 +75,6 @@ public class Main {
             }
         }
         while (OpcaoUsuario != 3) ;
-        scanner.close();
+        scanner_chan.close();
     }
 }
