@@ -48,3 +48,8 @@
 [2025-05-30 23:56:37] usuário admin cadastrou endereço comercial no banco de dados.
 [2025-05-30 23:56:37] usuário admin cadastrou aaaaaa no banco de dados.
 [2025-06-02 04:43:19] Usuário admin consultou o cliente de id 2.
+[2025-06-02 04:46:17] Usuário admin consultou o produto de id 2.
+[2025-06-02 16:09:31] usuário admin cadastrou Bom dia  no banco de dados. 
+[2025-06-02 16:12:19] usuário admin cadastrou endereço comercial no banco de dados.
+[2025-06-02 16:12:59] usuário admin cadastrou endereço residencial no banco de dados.
+[2025-06-02 16:12:59] usuário admin cadastrou Nicollas no banco de dados. 

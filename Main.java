@@ -6,9 +6,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Menu menu_chan = new Menu();
-        Scanner scanner_chan = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         Pessoa pessoa_chan = new Pessoa();
-        Enderecos enderecos = new Enderecos();
         int OpcaoUsuario;
         do {
             System.out.println("\n=== Menu Primário ===");
@@ -36,7 +35,6 @@ public class Main {
                                 pessoa_chan.Cadastro_Cliente();
                                 if (pessoa_chan.getPositivoid() == 1 && pessoa_chan.getPositivotipo() == 1) {
                                     pessoa_chan.ImprimirCadastro();
-                                    enderecos.CadastroEndereco();
                                     pessoa_chan.GravarCadastroLog();
                                 }
                                 else {
@@ -77,6 +75,6 @@ public class Main {
             }
         }
         while (OpcaoUsuario != 3) ;
-        scanner_chan.close();
+        scanner.close();
     }
 }

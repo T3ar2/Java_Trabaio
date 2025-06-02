@@ -1,2 +1,1 @@
-Id: 3;Nome: ruby-chan;Tipo: cliente;
-Id: 2;Nome: aaaaaa;Tipo: cliente;
+

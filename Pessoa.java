@@ -64,30 +64,32 @@ public class Pessoa {
     }
 
     public void Cadastro_Cliente(){
-        Scanner scannerint = new Scanner(System.in);
-        Scanner scannerString = new Scanner(System.in);
+        Enderecos enderecos = new Enderecos();
         System.out.println("Insira o ID do Cliente: ");
         int verificadorInt = scanner.nextInt();
+        scanner.nextLine();
 
         if (verificadorInt > 0 && verificadorInt <= 999999){
         setId_pessoa(verificadorInt);
         setPositivoid(1);
+        enderecos.setVinculoIdpessoaEndereco(id_pessoa);
         }
         Confirmar();
 
         System.out.println("Insira o Nome do Cliente:");
-        String N = scannerString.nextLine();
+        String N = scanner.nextLine();
         setNome(N);
         Confirmar();
 
 
         System.out.println("Insira o Tipo da Pessoa (Cliente, Fornecedor ou ambos):");
-        String verificadorString = scannerString.nextLine().toLowerCase();
+        String verificadorString = scanner.nextLine().toLowerCase();
         Confirmar();
             if (verificadorString.contains("cliente") || verificadorString.contains("fornecedor") || verificadorString.contains("ambos")){
                 setTipo_pessoa(verificadorString);
                 setPositivotipo(1);
             }
+        enderecos.CadastroEndereco();
     }
 
     public void ImprimirCadastro(){
@@ -305,9 +307,8 @@ public class Pessoa {
 }
 
     public void Confirmar(){
-        Scanner ConfirmarScanner = new Scanner(System.in);
         System.out.println("Aperte ENTER para confirmar. ");
-        ConfirmarScanner.nextLine();
+        scanner.nextLine();
     }
 
 }

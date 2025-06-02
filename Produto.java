@@ -12,6 +12,7 @@ public class Produto extends Pessoa {
     private String descricao;
     private double custo;
     private double precoVenda;
+    private int CodFornecedor;
     private int verificadorIdProduto;
     private int verificadorCusto;
     private int verificadorPrecoVenda;
@@ -49,6 +50,11 @@ public class Produto extends Pessoa {
         this.verificadorPrecoVenda = verificadorPrecoVenda;
     }
 
+    public void setCodFornecedor(int codFornecedor) {
+        CodFornecedor = codFornecedor;
+    }
+
+
     public int getIdProduto() {
         return idProduto;
     }
@@ -65,6 +71,10 @@ public class Produto extends Pessoa {
         return precoVenda;
     }
 
+    public int getCodFornecedor() {
+        return CodFornecedor;
+    }
+
     public void CadastrarProduto() {
 
         do {
@@ -77,7 +87,7 @@ public class Produto extends Pessoa {
                 Confirmar();
                 setVerificadorIdProduto(1);
             } else
-                System.out.println("Id inserido incorretamente.Por favor, ensira um número válido.");
+                System.out.println("Id inserido incorretamente. Por favor, ensira um número válido.");
         }
         while (verificadorIdProduto != 1);
 
@@ -116,6 +126,12 @@ public class Produto extends Pessoa {
             }
         }
         while (verificadorPrecoVenda != 1);
+
+        System.out.print("Código do Fornecedor: ");
+        CodFornecedor = scanner.nextInt();
+        scanner.nextLine();
+        Confirmar();
+
         ImprimirCadastro();
         GravarCadastroLog();
     }
@@ -124,7 +140,7 @@ public class Produto extends Pessoa {
     public void ImprimirCadastro() {
         try (FileWriter fileWriter = new FileWriter("OutputProduto.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write("Id: " + idProduto + ";" + "Nome: " + nomeProduto + ";" + "Descrição: " + descricao + ";" + "Custo: R$" + custo + ";" + "Preço de Venda: R$" + precoVenda + ";");
+            bufferedWriter.write("Id: " + idProduto + ";" + "Nome: " + nomeProduto + ";" + "Descrição: " + descricao + ";" + "Custo: R$" + custo + ";" + "Preço de Venda: R$" + precoVenda + ";" + "Código do Fornecedor: " + CodFornecedor + ";");
             bufferedWriter.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
