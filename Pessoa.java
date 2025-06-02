@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Pessoa {
     private int id_pessoa;
@@ -124,18 +126,18 @@ public class Pessoa {
         boolean encontrado = false;
         StringBuilder novoConteudo = new StringBuilder();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("OutputCliente.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputPesoas.txt"))) {
             String linha;
 
             while ((linha = reader.readLine()) != null) {
                 if (linha.startsWith("Id: " + idBusca + ";")) {
                     encontrado = true;
-                    System.out.println("Cliente encontrado: " + linha);
+                    System.out.println("Pessoa encontrado: " + linha);
 
                     System.out.print("Digite o novo nome do cliente: ");
                     String novoNome = scanner.nextLine();
 
-                    System.out.print("Digite o novo tipo (Física ou Jurídica): ");
+                    System.out.print("Digite o novo tipo (Cliente, Fornecedor ou ambos): ");
                     String novoTipo = scanner.nextLine();
 
                     String novaLinha = "Id: " + idBusca + ";Nome: " + novoNome + ";Tipo: " + novoTipo + ";";
@@ -153,7 +155,7 @@ public class Pessoa {
             }
 
             if (encontrado) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputCliente.txt"))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputPesoas.txt"))) {
                     writer.write(novoConteudo.toString());
                 }
 
@@ -163,59 +165,80 @@ public class Pessoa {
                 String alterarEndereco = scanner.nextLine().trim().toLowerCase();
 
                 if (alterarEndereco.equals("s")) {
-                    System.out.print("Deseja alterar qual endereço? (1, 2 ou ambos): ");
-                    String escolhaEndereco = scanner.nextLine().trim();
+                    System.out.print("Quantos endereços deseja atualizar para o cliente? ");
+                    int quantidade = scanner.nextInt();
+                    scanner.nextLine(); // consumir quebra de linha
 
-                    try (BufferedReader readerEndereco = new BufferedReader(new FileReader("Endereco.txt"))) {
-                        StringBuilder novoEnderecoConteudo = new StringBuilder();
-                        boolean enderecoEncontrado = false;
+                    List<String> novosEnderecos = new ArrayList<>();
 
-                        String linhaEndereco;
-                        while ((linhaEndereco = readerEndereco.readLine()) != null) {
-                            if (linhaEndereco.startsWith("IdPessoa: " + idBusca + ";")) {
-                                enderecoEncontrado = true;
-                                String endereco1 = "", endereco2 = "";
+                    for (int i = 0; i < quantidade; i++) {
+                        System.out.println("Atualizando endereço " + (i + 1));
 
-                                if (escolhaEndereco.equals("1") || escolhaEndereco.equalsIgnoreCase("ambos")) {
-                                    System.out.print("Novo endereço 1: ");
-                                    endereco1 = scanner.nextLine();
-                                } else {
-                                    endereco1 = extrairEnderecoExistente(linhaEndereco, "Endereco1");
-                                }
+                        int cep = 0;
+                        while (cep <= 0 || cep > 99999999) {
+                            System.out.print("Insira o CEP: ");
+                            cep = scanner.nextInt();
+                            scanner.nextLine(); // consumir quebra de linha
+                        }
 
-                                if (escolhaEndereco.equals("2") || escolhaEndereco.equalsIgnoreCase("ambos")) {
-                                    System.out.print("Novo endereço 2: ");
-                                    endereco2 = scanner.nextLine();
-                                } else {
-                                    endereco2 = extrairEnderecoExistente(linhaEndereco, "Endereco2");
-                                }
+                        System.out.print("Insira o nome da rua (sem o número da casa): ");
+                        String logradouro = scanner.nextLine();
 
-                                String novaLinhaEndereco = "IdPessoa: " + idBusca + ";Endereco1: " + endereco1 + ";Endereco2: " + endereco2 + ";";
-                                novoEnderecoConteudo.append(novaLinhaEndereco).append("\n");
+                        System.out.print("Insira o número: ");
+                        int numero = scanner.nextInt();
+                        scanner.nextLine(); // consumir quebra de linha
+
+                        System.out.print("Insira o complemento (pressione Enter se não houver): ");
+                        String complemento = scanner.nextLine();
+
+                        String tipoEndereco = "";
+                        while (true) {
+                            System.out.print("Insira o tipo de endereço (Comercial, Residencial, Entrega ou Correspondência): ");
+                            tipoEndereco = scanner.nextLine().toLowerCase();
+                            if (tipoEndereco.contains("comercial") || tipoEndereco.contains("residencial")
+                                    || tipoEndereco.contains("entrega") || tipoEndereco.contains("correspondência")) {
+                                break;
                             } else {
-                                novoEnderecoConteudo.append(linhaEndereco).append("\n");
+                                System.out.println("Tipo de endereço inválido. Tente novamente.");
                             }
                         }
 
-                        if (enderecoEncontrado) {
-                            try (BufferedWriter writerEndereco = new BufferedWriter(new FileWriter("Endereco.txt"))) {
-                                writerEndereco.write(novoEnderecoConteudo.toString());
-                            }
+                        String linhaEndereco = "Cliente Id: " + idBusca + "; CEP: " + cep + "; Logadouro: " + logradouro +
+                                "; Número: " + numero + "; Complemento: " + complemento + "; Tipo: " + tipoEndereco + ";";
+                        novosEnderecos.add(linhaEndereco);
+                    }
 
-                            try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
-                                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                                logWriter.write("[" + timestamp + "] usuário admin alterou o endereço do cliente ID " + idBusca + ".");
-                                logWriter.newLine();
-                            }
+                    // Reescrevendo os endereços no arquivo (removendo os antigos do cliente)
+                    try (BufferedReader readerEndereco = new BufferedReader(new FileReader("EnderecoOutput.txt"))) {
+                        StringBuilder enderecoAtualizado = new StringBuilder();
+                        String linhaEnderecoAtual;
 
-                            System.out.println("Endereço(s) atualizado(s) com sucesso.");
-                        } else {
-                            System.out.println("Endereço para o cliente de ID " + idBusca + " não encontrado.");
+                        while ((linhaEnderecoAtual = readerEndereco.readLine()) != null) {
+                            if (!linhaEnderecoAtual.startsWith("Cliente Id: " + idBusca + ";")) {
+                                enderecoAtualizado.append(linhaEnderecoAtual).append("\n");
+                            }
                         }
+
+                        for (String endereco : novosEnderecos) {
+                            enderecoAtualizado.append(endereco).append("\n");
+                        }
+
+                        try (BufferedWriter writerEndereco = new BufferedWriter(new FileWriter("EnderecoOutput.txt"))) {
+                            writerEndereco.write(enderecoAtualizado.toString());
+                        }
+
+                        try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                            logWriter.write("[" + timestamp + "] usuário admin atualizou os endereços do cliente ID " + idBusca + ".");
+                            logWriter.newLine();
+                        }
+
+                        System.out.println("Endereço(s) atualizado(s) com sucesso.");
                     } catch (IOException e) {
-                        System.err.println("Erro ao atualizar o(s) endereço(s): " + e.getMessage());
+                        System.err.println("Erro ao atualizar os endereços: " + e.getMessage());
                     }
                 }
+
 
             } else {
                 System.out.println("Cliente com ID " + idBusca + " não encontrado.");
