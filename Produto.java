@@ -239,4 +239,53 @@ public class Produto extends Pessoa{
             System.err.println("Erro ao ler ou escrever o arquivo: " + e.getMessage());
         }
     }
+
+    public void ExcluirProduto() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Digite o ID do produto que deseja excluir: ");
+    int idExcluir = scanner.nextInt();
+    scanner.nextLine();
+
+    boolean encontrado = false;
+    StringBuilder novoConteudo = new StringBuilder();
+
+    try (BufferedReader reader = new BufferedReader(new FileReader("OutputProduto.txt"))) {
+        String linha;
+
+        while ((linha = reader.readLine()) != null) {
+            if (linha.startsWith("Id: " + idExcluir)) {
+                encontrado = true;
+                System.out.println("Produto encontrado: " + linha);
+                System.out.print("Tem certeza que deseja excluir este produto? (s para sim e n para não): ");
+                String confirmacao = scanner.nextLine();
+                if (!confirmacao.equalsIgnoreCase("s")) {
+                    novoConteudo.append(linha).append("\n");
+                    System.out.println("Exclusão cancelada.");
+                } else {
+                    try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                        logWriter.write("[" + timestamp + "] usuário admin excluiu o produto ID " + idExcluir + ".");
+                        logWriter.newLine();
+                    }
+                    System.out.println("Produto excluído com sucesso.");
+                }
+            } else {
+                novoConteudo.append(linha).append("\n");
+            }
+        }
+
+        if (encontrado) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputProduto.txt"))) {
+                writer.write(novoConteudo.toString());
+            }
+        } else {
+            System.out.println("Produto com ID " + idExcluir + " não encontrado.");
+        }
+
+    } catch (IOException e) {
+        System.err.println("Erro ao ler ou escrever o arquivo: " + e.getMessage());
+    }
 }
+
+}
+

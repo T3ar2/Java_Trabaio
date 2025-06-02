@@ -61,6 +61,7 @@ public class Main {
                             case 2:
                             break;
                             case 3:
+                                produto.ExcluirProduto();
                             break;
                             case 4:
                                 produto.CadastrarProduto();

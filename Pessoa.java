@@ -257,46 +257,52 @@ public class Pessoa {
     }
 
     public void ExcluirCadastroCliente() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite o ID do cliente a ser excluído: ");
-        int idBusca = scanner.nextInt();
-        scanner.nextLine();
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Digite o ID do cliente a ser excluído: ");
+    int idBusca = scanner.nextInt();
+    scanner.nextLine();
 
-        boolean encontrado = false;
+    boolean encontrado = false;
+    StringBuilder novoConteudo = new StringBuilder();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("OutputPesoas.txt"))) {
-            StringBuilder novoConteudo = new StringBuilder();
-            String linha;
+    try (BufferedReader reader = new BufferedReader(new FileReader("OutputPesoas.txt"))) {
+        String linha;
 
-            while ((linha = reader.readLine()) != null) {
-                if (linha.startsWith("Id: " + idBusca + ";")) {
-                    encontrado = true;
-                } else {
+        while ((linha = reader.readLine()) != null) {
+            if (linha.startsWith("Id: " + idBusca + ";")) {
+                encontrado = true;
+                System.out.println("Cliente encontrado: " + linha);
+                System.out.print("Tem certeza que deseja excluir este cliente? (s para sim e n para não): ");
+                String confirmacao = scanner.nextLine();
+
+                if (!confirmacao.equalsIgnoreCase("s")) {
                     novoConteudo.append(linha).append("\n");
-                }
-            }
-
-            if (encontrado) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputPesoas.txt"))) {
-                    writer.write(novoConteudo.toString());
-                }
-
-
-                System.out.println("Cadastro excluído com sucesso.");
-
-                try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
-                    String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                    logWriter.write("[" + timestamp + "] Usuário admin excluiu a pessoa com o id " + idBusca + ".");
-                    logWriter.newLine();
+                    System.out.println("Exclusão cancelada.");
+                } else {
+                    try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                        logWriter.write("[" + timestamp + "] Usuário admin excluiu a pessoa com o id " + idBusca + ".");
+                        logWriter.newLine();
+                    }
+                    System.out.println("Cadastro excluído com sucesso.");
                 }
             } else {
-                System.out.println("Cliente com ID " + idBusca + " não encontrado.");
+                novoConteudo.append(linha).append("\n");
             }
-
-        } catch (IOException e) {
-            System.err.println("Erro ao excluir cadastro: " + e.getMessage());
         }
+
+        if (encontrado) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputPesoas.txt"))) {
+                writer.write(novoConteudo.toString());
+            }
+        } else {
+            System.out.println("Cliente com ID " + idBusca + " não encontrado.");
+        }
+
+    } catch (IOException e) {
+        System.err.println("Erro ao excluir cadastro: " + e.getMessage());
     }
+}
 
     public void Confirmar(){
         Scanner ConfirmarScanner = new Scanner(System.in);
