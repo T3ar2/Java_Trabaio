@@ -68,33 +68,34 @@ public class Enderecos extends Pessoa{
             Pessoa confirma = new Pessoa();
             int  VerificadorCep = 0;
             do {
-                System.out.println("Insira o Cep: ");
+                System.out.println("Insira o"+ (i+1) + "° Cep: ");
                 int NumCep = scanner.nextInt();
                 scanner.nextLine();
                 confirma.Confirmar();
-                if (NumCep > 0 && NumCep <= 99999999){
+                if (NumCep > 9999999 && NumCep <= 99999999){
                     setCep(NumCep);
                     VerificadorCep = 1;
                 }
+                else{System.out.println("Cep incorreto, tente de novo. ");}
             }
             while(VerificadorCep != 1);
 
 
-            System.out.println("Insira o endereço (sem o número da casa): ");
+            System.out.println("Insira o"+ (i+1) +"° endereço (sem o número da casa): ");
             setLogadouro(scanner.nextLine());
             confirma.Confirmar();
 
-            System.out.println("Insira o número da casa: ");
+            System.out.println("Insira o "+ (i+1) + "° número da casa: ");
             setNumero(scanner.nextInt());
             scanner.nextLine();
             confirma.Confirmar();
 
-            System.out.println("Insira o complemento de seu endereço. Obs não é obrigatório: ");
+            System.out.println("Insira o "+ (i+1) + "° complemento de seu endereço. Obs não é obrigatório: ");
             setComplemento(scanner.nextLine());
             confirma.Confirmar();
 
             do {
-                System.out.println("Insira o tipo de seu endereço(Comercial, Residencial, Entrega e correspondência): ");
+                System.out.println("Insira o tipo de seu "+ (i+1) + "°endereço(Comercial, Residencial, Entrega e correspondência): ");
                 String VerificarTipoEndereco = scanner.nextLine().toLowerCase();
                 confirma.Confirmar();
                 if (VerificarTipoEndereco.contains("comercial")  || VerificarTipoEndereco.contains("residencial")  || VerificarTipoEndereco.contains("entrega")  || VerificarTipoEndereco.contains("correspondência")){
