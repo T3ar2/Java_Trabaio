@@ -1,0 +1,2 @@
+Cliente Id: 0; CEP: 81810190; Logadouro: batista da costa; Número: 101; Complemento: casa; Tipo: comercial;
+Cliente Id: 0; CEP: 123; Logadouro: aaaa; Número: 123; Complemento: ; Tipo: comercial;

@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class Produto extends Pessoa{
+public class Produto extends Pessoa {
     private int idProduto;
     private String descricao;
     private double custo;
@@ -65,7 +65,7 @@ public class Produto extends Pessoa{
         return precoVenda;
     }
 
-    public void CadastrarProduto(){
+    public void CadastrarProduto() {
 
         do {
 
@@ -101,7 +101,7 @@ public class Produto extends Pessoa{
                 System.out.print("O valor de custo inserido é inválido.");
             }
         }
-        while(verificadorCusto != 1);
+        while (verificadorCusto != 1);
 
         do {
             System.out.print("Venda: R$");
@@ -121,10 +121,10 @@ public class Produto extends Pessoa{
     }
 
     @Override
-    public void ImprimirCadastro(){
+    public void ImprimirCadastro() {
         try (FileWriter fileWriter = new FileWriter("OutputProduto.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write("Id: " + idProduto + " Nome: " + nomeProduto + ";" +" Descrição: " + descricao + ";" + " Custo: R$" + custo + ";" + " Preço de Venda: R$" + precoVenda);
+            bufferedWriter.write("Id: " + idProduto + ";" + "Nome: " + nomeProduto + ";" + "Descrição: " + descricao + ";" + "Custo: R$" + custo + ";" + "Preço de Venda: R$" + precoVenda + ";");
             bufferedWriter.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
@@ -132,12 +132,12 @@ public class Produto extends Pessoa{
     }
 
     @Override
-    public void GravarCadastroLog(){
+    public void GravarCadastroLog() {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         System.out.println("Produto " + nomeProduto + " Cadastrado com sucesso, verifique o arquivo OutputProduto para visualizar seu cadastro. ");
         try (FileWriter fileWriter = new FileWriter("Log.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write("["+ timestamp + "] " + "usuário admin cadastrou o produto "  + nomeProduto + " no banco de dados. ");
+            bufferedWriter.write("[" + timestamp + "] " + "usuário admin cadastrou o produto " + nomeProduto + " no banco de dados. ");
             bufferedWriter.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
@@ -241,51 +241,92 @@ public class Produto extends Pessoa{
     }
 
     public void ExcluirProduto() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Digite o ID do produto que deseja excluir: ");
-    int idExcluir = scanner.nextInt();
-    scanner.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite o ID do produto que deseja excluir: ");
+        int idExcluir = scanner.nextInt();
+        scanner.nextLine();
 
-    boolean encontrado = false;
-    StringBuilder novoConteudo = new StringBuilder();
+        boolean encontrado = false;
+        StringBuilder novoConteudo = new StringBuilder();
 
-    try (BufferedReader reader = new BufferedReader(new FileReader("OutputProduto.txt"))) {
-        String linha;
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputProduto.txt"))) {
+            String linha;
 
-        while ((linha = reader.readLine()) != null) {
-            if (linha.startsWith("Id: " + idExcluir)) {
-                encontrado = true;
-                System.out.println("Produto encontrado: " + linha);
-                System.out.print("Tem certeza que deseja excluir este produto? (s para sim e n para não): ");
-                String confirmacao = scanner.nextLine();
-                if (!confirmacao.equalsIgnoreCase("s")) {
-                    novoConteudo.append(linha).append("\n");
-                    System.out.println("Exclusão cancelada.");
-                } else {
-                    try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
-                        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                        logWriter.write("[" + timestamp + "] usuário admin excluiu o produto ID " + idExcluir + ".");
-                        logWriter.newLine();
+            while ((linha = reader.readLine()) != null) {
+                if (linha.startsWith("Id: " + idExcluir)) {
+                    encontrado = true;
+                    System.out.println("Produto encontrado: " + linha);
+                    System.out.print("Tem certeza que deseja excluir este produto? (s para sim e n para não): ");
+                    String confirmacao = scanner.nextLine();
+                    if (!confirmacao.equalsIgnoreCase("s")) {
+                        novoConteudo.append(linha).append("\n");
+                        System.out.println("Exclusão cancelada.");
+                    } else {
+                        try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                            logWriter.write("[" + timestamp + "] usuário admin excluiu o produto ID " + idExcluir + ".");
+                            logWriter.newLine();
+                        }
+                        System.out.println("Produto excluído com sucesso.");
                     }
-                    System.out.println("Produto excluído com sucesso.");
+                } else {
+                    novoConteudo.append(linha).append("\n");
+                }
+            }
+
+            if (encontrado) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputProduto.txt"))) {
+                    writer.write(novoConteudo.toString());
                 }
             } else {
-                novoConteudo.append(linha).append("\n");
+                System.out.println("Produto com ID " + idExcluir + " não encontrado.");
             }
-        }
 
-        if (encontrado) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputProduto.txt"))) {
-                writer.write(novoConteudo.toString());
-            }
-        } else {
-            System.out.println("Produto com ID " + idExcluir + " não encontrado.");
+        } catch (IOException e) {
+            System.err.println("Erro ao ler ou escrever o arquivo: " + e.getMessage());
         }
-
-    } catch (IOException e) {
-        System.err.println("Erro ao ler ou escrever o arquivo: " + e.getMessage());
     }
-}
+    //What the helly
+    public void ConsultarProduto() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite o ID do produto que deseja consultar: ");
 
+        try {
+            int idBuscado = Integer.parseInt(scanner.nextLine());
+            boolean encontrado = false;
+
+            try (BufferedReader br = new BufferedReader(new FileReader("OutputProduto.txt"))) {
+                String linha;
+
+                while ((linha = br.readLine()) != null) {
+                    if (linha.startsWith("Id: ")) {
+                        String idStr = linha.substring(4, linha.indexOf(';')).trim();
+                        int id = Integer.parseInt(idStr);
+
+                        if (id == idBuscado) {
+                            System.out.println("Produto encontrado:");
+                            System.out.println(linha);
+                            encontrado = true;
+                            try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                                logWriter.write("[" + timestamp + "] Usuário admin consultou o produto de id " + idBuscado + ".");
+                                logWriter.newLine();
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                if (!encontrado) {
+                    System.out.println("Produto com ID " + idBuscado + " não encontrado.");
+                }
+            } catch (IOException e) {
+                System.out.println("Erro ao acessar o arquivo: " + e.getMessage());
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("ID inválido. Digite um número inteiro.");
+        }
+    }
 }
 

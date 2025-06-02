@@ -308,6 +308,6 @@ public class Pessoa {
         Scanner ConfirmarScanner = new Scanner(System.in);
         System.out.println("Aperte ENTER para confirmar. ");
         ConfirmarScanner.nextLine();
-    };
+    }
 
 }

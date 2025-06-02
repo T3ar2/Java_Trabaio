@@ -1,3 +1,4 @@
-Id: 1 Nome: Coquinha geladinha;Descrição: uhmmm geladinha;Custo: R$10.00;Preço de Venda: R$50.00
-Id: 1Nome: aaaa;Descrição: aawdadaw;Custo: R$1123.0;Preço de Venda: R$123.0
-Id: 1Nome: aaaaaa;Descrição: asda;Custo: R$123.0;Preço de Venda: R$22.0
+Id: 1;Nome: Coquinha geladinha;Descrição: uhmmm geladinha;Custo: R$10.00;Preço de Venda: R$50.00;
+Id: 2;Nome: aaaa;Descrição: aawdadaw;Custo: R$1123.0;Preço de Venda: R$123.0;
+Id: 3;Nome: aaaaaa;Descrição: asda;Custo: R$123.0;Preço de Venda: R$22.0;
+

@@ -59,6 +59,7 @@ public class Main {
                                 produto.AlterarProduto();
                             break;
                             case 2:
+                                produto.ConsultarProduto();
                             break;
                             case 3:
                                 produto.ExcluirProduto();
