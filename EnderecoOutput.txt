@@ -1,4 +1,3 @@
 Cliente Id: 1; CEP: 111111; Logadouro: Bom dia Endereços ; Número: 123; Complemento: ; Tipo: comercial;
 Cliente Id: 1; CEP: 222222; Logadouro: Bom dia Endereços 2; Número: 123456; Complemento: ; Tipo: residencial;
-Cliente Id: 2; CEP: 91910910; Logadouro: batista da costa; Número: 101; Complemento: casa; Tipo: comercial;
-Cliente Id: 2; CEP: 81810190; Logadouro: batista da coooosta; Número: 205; Complemento: casa; Tipo: entrega;
+Cliente Id: 2; CEP: 81810190; Logadouro: costa rica; Número: 202; Complemento: casa; Tipo: comercial;

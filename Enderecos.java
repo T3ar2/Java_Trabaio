@@ -132,6 +132,8 @@ public class Enderecos extends Pessoa{
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
         }
     }
+
+
 }
 
 

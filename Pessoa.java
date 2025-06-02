@@ -55,15 +55,6 @@ public class Pessoa {
         this.positivotipo = positivotipo;
     }
 
-    private String extrairEnderecoExistente(String linha, String campo) {
-        int inicio = linha.indexOf(campo + ":");
-        if (inicio == -1) return "";
-
-        int fim = linha.indexOf(";", inicio);
-        if (fim == -1) fim = linha.length();
-
-        return linha.substring(inicio + campo.length() + 1, fim).trim();
-    }
 
     public void Cadastro_Cliente(){
         Enderecos enderecos = new Enderecos();
@@ -238,7 +229,6 @@ public class Pessoa {
                         System.err.println("Erro ao atualizar os endereços: " + e.getMessage());
                     }
                 }
-
 
             } else {
                 System.out.println("Cliente com ID " + idBusca + " não encontrado.");

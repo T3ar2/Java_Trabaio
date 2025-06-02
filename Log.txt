@@ -62,3 +62,10 @@
 [2025-06-02 16:21:17] usuário admin alterou os dados do cliente ID 2.
 [2025-06-02 16:22:18] usuário admin atualizou os endereços do cliente ID 2.
 [2025-06-02 16:23:12] usuário admin alterou os dados do produto ID 1.
+[2025-06-02 17:21:00] usuário admin alterou os dados do cliente ID 2.
+[2025-06-02 17:21:32] usuário admin atualizou os endereços do cliente ID 0.
+[2025-06-02 18:29:13] usuário admin alterou os dados do cliente ID 2.
+[2025-06-02 18:29:49] usuário admin atualizou os endereços do cliente ID 0.
+[2025-06-02 18:31:13] usuário admin alterou os dados do cliente ID 2.
+[2025-06-02 18:31:58] usuário admin atualizou os endereços do cliente ID 2.
+[2025-06-02 18:36:58] Usuário admin consultou o cliente de id 1.
