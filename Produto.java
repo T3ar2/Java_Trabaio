@@ -177,15 +177,12 @@ public class Produto extends Pessoa {
                     encontrado = true;
                     System.out.println("Produto encontrado: " + linha);
 
-                    // Perguntar novo nome
                     System.out.print("Digite o novo nome do produto: ");
                     String novoNome = scanner.nextLine();
 
-                    // Perguntar nova descrição
                     System.out.print("Digite a nova descrição do produto: ");
                     String novaDescricao = scanner.nextLine();
 
-                    // Perguntar novo custo
                     double novoCusto = 0;
                     boolean custoValido = false;
                     do {
@@ -203,7 +200,6 @@ public class Produto extends Pessoa {
                         }
                     } while (!custoValido);
 
-                    // Perguntar novo preço de venda
                     double novoPrecoVenda = 0;
                     boolean precoValido = false;
                     do {
@@ -221,7 +217,6 @@ public class Produto extends Pessoa {
                         }
                     } while (!precoValido);
 
-                    // Montar nova linha formatada igual ao OutputProduto
                     StringBuilder novaLinha = new StringBuilder();
                     novaLinha.append("Id: ").append(idBusca).append(" ");
                     novaLinha.append("Nome: ").append(novoNome).append(";");
@@ -231,7 +226,6 @@ public class Produto extends Pessoa {
 
                     novoConteudo.append(novaLinha.toString()).append("\n");
 
-                    // Gravar no log
                     try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
                         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                         logWriter.write("[" + timestamp + "] usuário admin alterou os dados do produto ID " + idBusca + ".");
@@ -302,7 +296,7 @@ public class Produto extends Pessoa {
             System.err.println("Erro ao ler ou escrever o arquivo: " + e.getMessage());
         }
     }
-    //What the helly
+
     public void ConsultarProduto() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o ID do produto que deseja consultar: ");
