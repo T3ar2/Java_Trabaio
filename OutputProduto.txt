@@ -2,3 +2,4 @@ Id: 1 Nome: Pespi salva vidas;Descrição: uhmmm pepsi geladinha;Custo: R$300.00
 Id: 2;Nome: aaaa;Descrição: aawdadaw;Custo: R$1123.0;Preço de Venda: R$123.0;
 Id: 3;Nome: aaaaaa;Descrição: asda;Custo: R$123.0;Preço de Venda: R$22.0;
 
+Id: 6;Nome: mesa;Descrição: 2 lugares;Custo: R$200.0;Preço de Venda: R$500.0;Código do Fornecedor: 9998;

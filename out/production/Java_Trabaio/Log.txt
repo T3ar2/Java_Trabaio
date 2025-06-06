@@ -68,3 +68,14 @@
 [2025-06-02 18:29:49] usuário admin atualizou os endereços do cliente ID 0.
 [2025-06-02 18:31:13] usuário admin alterou os dados do cliente ID 2.
 [2025-06-02 18:31:58] usuário admin atualizou os endereços do cliente ID 2.
+[2025-06-02 18:36:58] Usuário admin consultou o cliente de id 1.
+[2025-06-02 18:51:11] usuário admin cadastrou endereço comercial no banco de dados.
+[2025-06-02 18:51:11] usuário admin cadastrou eriuck no banco de dados. 
+[2025-06-02 18:51:19] Usuário admin consultou o cliente de id 5.
+[2025-06-02 18:51:33] Usuário admin consultou o cliente de id 1.
+[2025-06-02 18:52:30] usuário admin alterou os dados do cliente ID 5.
+[2025-06-02 18:53:05] usuário admin atualizou os endereços do cliente ID 5.
+[2025-06-02 18:53:32] Usuário admin excluiu a pessoa com o id 5.
+[2025-06-02 18:54:09] usuário admin cadastrou o produto mesa no banco de dados. 
+[2025-06-02 18:54:42] usuário admin alterou os dados do produto ID 5.
+[2025-06-02 18:56:06] usuário admin excluiu o produto ID 5.

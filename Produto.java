@@ -87,7 +87,7 @@ public class Produto extends Pessoa {
                 Confirmar();
                 setVerificadorIdProduto(1);
             } else
-                System.out.println("Id inserido incorretamente. Por favor, ensira um número válido.");
+                System.out.println("Id inserido incorretamente. Por favor, insira um número válido.");
         }
         while (verificadorIdProduto != 1);
 
@@ -300,43 +300,42 @@ public class Produto extends Pessoa {
     public void ConsultarProduto() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o ID do produto que deseja consultar: ");
+        int idBusca = scanner.nextInt();
+        scanner.nextLine(); // Limpa o buffer
 
-        try {
-            int idBuscado = Integer.parseInt(scanner.nextLine());
-            boolean encontrado = false;
+        boolean encontrado = false;
 
-            try (BufferedReader br = new BufferedReader(new FileReader("OutputProduto.txt"))) {
-                String linha;
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputProduto.txt"))) {
+            String linha;
 
-                while ((linha = br.readLine()) != null) {
-                    if (linha.startsWith("Id: ")) {
-                        String idStr = linha.substring(4, linha.indexOf(';')).trim();
-                        int id = Integer.parseInt(idStr);
+            while ((linha = reader.readLine()) != null) {
+                if (linha.startsWith("Id: " + idBusca)) {
+                    System.out.println("Produto encontrado:");
+                    System.out.println(linha);
+                    encontrado = true;
 
-                        if (id == idBuscado) {
-                            System.out.println("Produto encontrado:");
-                            System.out.println(linha);
-                            encontrado = true;
-                            try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
-                                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                                logWriter.write("[" + timestamp + "] Usuário admin consultou o produto de id " + idBuscado + ".");
-                                logWriter.newLine();
-                            }
-                            break;
-                        }
+                    // Adicionando log da consulta
+                    try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                        logWriter.write("[" + timestamp + "] usuário admin consultou o produto ID " + idBusca + ".");
+                        logWriter.newLine();
+                    } catch (IOException e) {
+                        System.err.println("Erro ao gravar o log da consulta: " + e.getMessage());
                     }
-                }
 
-                if (!encontrado) {
-                    System.out.println("Produto com ID " + idBuscado + " não encontrado.");
+                    break;
                 }
-            } catch (IOException e) {
-                System.out.println("Erro ao acessar o arquivo: " + e.getMessage());
             }
 
-        } catch (NumberFormatException e) {
-            System.out.println("ID inválido. Digite um número inteiro.");
+            if (!encontrado) {
+                System.out.println("Produto com ID " + idBusca + " não encontrado.");
+            }
+
+        } catch (IOException e) {
+            System.err.println("Erro ao ler o arquivo: " + e.getMessage());
         }
     }
+
+
 }
 
