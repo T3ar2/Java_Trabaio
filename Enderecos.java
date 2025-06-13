@@ -68,7 +68,7 @@ public class Enderecos extends Pessoa{
             Pessoa confirma = new Pessoa();
             int  VerificadorCep = 0;
             do {
-                System.out.println("Insira o "+ (i+1) + "° Cep: ");
+                System.out.println("Insira o"+ (i+1) + "° Cep: ");
                 int NumCep = scanner.nextInt();
                 scanner.nextLine();
                 confirma.Confirmar();
@@ -81,7 +81,7 @@ public class Enderecos extends Pessoa{
             while(VerificadorCep != 1);
 
 
-            System.out.println("Insira o "+ (i+1) +"° endereço (sem o número da casa): ");
+            System.out.println("Insira o"+ (i+1) +"° endereço (sem o número da casa): ");
             setLogadouro(scanner.nextLine());
             confirma.Confirmar();
 
@@ -95,7 +95,7 @@ public class Enderecos extends Pessoa{
             confirma.Confirmar();
 
             do {
-                System.out.println("Insira o tipo de seu "+ (i+1) + "° endereço(Comercial, Residencial, Entrega e correspondência): ");
+                System.out.println("Insira o tipo de seu "+ (i+1) + "°endereço(Comercial, Residencial, Entrega e correspondência): ");
                 String VerificarTipoEndereco = scanner.nextLine().toLowerCase();
                 confirma.Confirmar();
                 if (VerificarTipoEndereco.contains("comercial")  || VerificarTipoEndereco.contains("residencial")  || VerificarTipoEndereco.contains("entrega")  || VerificarTipoEndereco.contains("correspondência")){
@@ -133,8 +133,6 @@ public class Enderecos extends Pessoa{
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
         }
     }
-
-
 }
 
 

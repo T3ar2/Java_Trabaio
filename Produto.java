@@ -82,12 +82,15 @@ public class Produto extends Pessoa {
             System.out.print("iD do Produto: ");
             int num = scanner.nextInt();
             scanner.nextLine();
-            if (num > 0 && num < 999999) {
+            if (num > 0 && num < 999999 && !idExiste(num)) {
                 setIdProduto(num);
                 Confirmar();
                 setVerificadorIdProduto(1);
-            } else
+            } else if (idExiste(num)) {
+                System.out.println("ID já existe. Por favor, insira um ID único.");
+            } else {
                 System.out.println("Id inserido incorretamente. Por favor, insira um número válido.");
+            }
         }
         while (verificadorIdProduto != 1);
 
@@ -127,10 +130,19 @@ public class Produto extends Pessoa {
         }
         while (verificadorPrecoVenda != 1);
 
-        System.out.print("Código do Fornecedor: ");
-        CodFornecedor = scanner.nextInt();
-        scanner.nextLine();
-        Confirmar();
+        do {
+            int idVerificarfonecedor;
+            System.out.print("Código do Fornecedor (ID de pessoa já cadastrada): ");
+            int cod = scanner.nextInt();
+            scanner.nextLine();
+            if (idExistefornecedor(cod)) {
+                setCodFornecedor(cod);
+                Confirmar();
+                break;
+            } else {
+                System.out.println("Fornecedor com esse ID não encontrado. Cadastre a pessoa primeiro.");
+            }
+        } while (true);
 
         ImprimirCadastro();
         GravarCadastroLog();
@@ -335,7 +347,36 @@ public class Produto extends Pessoa {
             System.err.println("Erro ao ler o arquivo: " + e.getMessage());
         }
     }
+    public boolean idExiste(int idVerificar) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputProduto.txt"))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                if (linha.startsWith("Id: " + idVerificar + ";")) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao verificar ID existente: " + e.getMessage());
+        }
+        return false;
+    }
 
-
+    public boolean idExistefornecedor(int idVerificarFornecedor) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputPessoas.txt"))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                if (linha.startsWith("Id: " + idVerificarFornecedor + ";")) {
+                    if (linha.contains("Tipo: fornecedor") || linha.contains("Tipo: ambos")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao verificar ID de fornecedor: " + e.getMessage());
+        }
+        return false;
+    }
 }
 

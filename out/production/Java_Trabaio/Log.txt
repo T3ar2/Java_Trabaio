@@ -79,3 +79,10 @@
 [2025-06-02 18:54:09] usuário admin cadastrou o produto mesa no banco de dados. 
 [2025-06-02 18:54:42] usuário admin alterou os dados do produto ID 5.
 [2025-06-02 18:56:06] usuário admin excluiu o produto ID 5.
+[2025-06-02 21:25:14] usuário admin cadastrou o produto mesa no banco de dados. 
+[2025-06-02 21:25:42] usuário admin consultou o produto ID 6.
+[2025-06-02 21:26:14] usuário admin cadastrou o produto cadeira no banco de dados. 
+[2025-06-02 21:26:27] usuário admin consultou o produto ID 7.
+[2025-06-02 21:27:01] usuário admin alterou os dados do produto ID 7.
+[2025-06-02 21:27:06] usuário admin consultou o produto ID 7.
+[2025-06-02 21:27:26] usuário admin excluiu o produto ID 7.

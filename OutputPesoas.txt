@@ -1,2 +1,0 @@
-Id: 1;Nome: Bom dia ;Tipo: cliente;
-Id: 2;Nome: pedro;Tipo: cliente;
