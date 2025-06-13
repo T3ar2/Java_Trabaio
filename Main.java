@@ -12,11 +12,11 @@ public class Main {
         do {
             System.out.println("\n=== Menu Primário ===");
             menu_chan.MontarMenu();
-            OpcaoUsuario = menu_chan.OpcaoEscolhida(1, 3, "Escolha uma opção: ");
+            OpcaoUsuario = menu_chan.OpcaoEscolhida(1, 4, "Escolha uma opção: ");
 
             int opcao_selecao;
             switch (OpcaoUsuario) {
-                case 1: // Customer Registration
+                case 1:
                     System.out.println("\n--- Registro de Empresa ---");
                     menu_chan.MontarMenu(2, 1);
                     opcao_selecao = menu_chan.OpcaoEscolhida(1, 5, "Escolha uma opção");
@@ -33,16 +33,7 @@ public class Main {
                             break;
                             case 4:
                                 pessoa_chan.Cadastro_Cliente();
-                                if (pessoa_chan.getPositivoid() == 1 && pessoa_chan.getPositivotipo() == 1) {
-                                    pessoa_chan.ImprimirCadastro();
-                                    pessoa_chan.GravarCadastroLog();
-                                }
-                                else {
-                                    System.out.println("Falha ao adicionar, insira um id ou um tipo válido");
-                                }
-
                             break;
-
                         }
                     break;
                 case 2:
@@ -68,6 +59,12 @@ public class Main {
                         }
                     break;
                 case 3:
+                    System.out.println("\n=== Menu de Registro de Venda ===");
+                    menu_chan.MontarMenu(2, 3);
+                    int opcao_venda = menu_chan.OpcaoEscolhida(1, 5, "Escolha uma opção");
+                    System.out.println("Opção escolhida: " + opcao_venda);
+                    break;
+                case 4:
                     System.out.println("Programa Fechando.");
                     break;
                 default:

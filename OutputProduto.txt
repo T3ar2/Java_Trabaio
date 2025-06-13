@@ -1,1 +1,2 @@
-
+Id: 1;Nome: Teste 1;Descrição: ;Custo: R$1.0;Preço de Venda: R$2.0;Código do Fornecedor: 2;
+Id: 2;Nome: Teste 2;Descrição: ;Custo: R$1.0;Preço de Venda: R$2.0;Código do Fornecedor: 3;

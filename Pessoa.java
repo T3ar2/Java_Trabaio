@@ -75,6 +75,9 @@ public class Pessoa {
                 break;
             }
         }
+        setId_pessoa(verificadorInt);
+        setPositivoid(1);
+        enderecos.setVinculoIdpessoaEndereco(id_pessoa);
         Confirmar();
 
         System.out.println("Insira o Nome do Cliente:");
@@ -91,6 +94,9 @@ public class Pessoa {
             setPositivotipo(1);
         }
         enderecos.CadastroEndereco();
+        ImprimirCadastro();
+        GravarCadastroLog();
+
     }
 
     public void ImprimirCadastro() {
