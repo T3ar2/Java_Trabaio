@@ -1,1 +1,3 @@
-
+Cliente Id: 1; CEP: 11111111; Logadouro: teste Endereço Cliente; Número: 1; Complemento: ; Tipo: residencial;
+Cliente Id: 2; CEP: 22222222; Logadouro: Teste fornecedor; Número: 2; Complemento: ; Tipo: comercial;
+Cliente Id: 3; CEP: 33333333; Logadouro: Teste endereço ambos; Número: 3; Complemento: ; Tipo: entrega;

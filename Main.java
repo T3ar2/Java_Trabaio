@@ -63,6 +63,18 @@ public class Main {
                     menu_chan.MontarMenu(2, 3);
                     int opcao_venda = menu_chan.OpcaoEscolhida(1, 5, "Escolha uma opção");
                     System.out.println("Opção escolhida: " + opcao_venda);
+                    PedidoVenda pedidovenda = new PedidoVenda();
+                    switch(opcao_venda){
+                        case 1:
+                        break;
+                        case 2:
+                        break;
+                        case 3:
+                        break;
+                        case 4:
+                            pedidovenda.CadastroVenda();
+                        break;
+                    }
                     break;
                 case 4:
                     System.out.println("Programa Fechando.");
