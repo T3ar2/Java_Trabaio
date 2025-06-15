@@ -53,10 +53,24 @@ public class PedidoVenda {
     public void CadastroVenda() {
         total = 0.00;
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Número do pedido: ");
+        int verificadorIntPedido;
+        while (true) {
+            System.out.println("Número do pedido:");
+            verificadorIntPedido = scanner.nextInt();
+            scanner.nextLine();
+
+            if (verificadorIntPedido <= 0 || verificadorIntPedido > 999999) {
+                System.out.println("ID inválido. Digite um número entre 1 e 999999.");
+            } else if (idExiste(verificadorIntPedido)) {
+                System.out.println("Este ID já está em uso. Por favor, insira outro ID.");
+            } else {
+                break;
+            }
+        }
         setIdVenda(scanner.nextInt());
         scanner.nextLine();
         Confirmar(scanner);
+
 
         int idValido = 0;
         while (idValido != 1) {
@@ -217,6 +231,20 @@ public class PedidoVenda {
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivo: " + e.getMessage());
         }
+    }
+
+    public boolean idExiste(int idVerificar) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputVendas.txt"))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                if (linha.startsWith("Id: " + idVerificar + ";")) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao verificar ID existente: " + e.getMessage());
+        }
+        return false;
     }
 
 }
