@@ -84,7 +84,7 @@ public class Main {
                     System.out.println("Opção inválida.");
             }
         }
-        while (OpcaoUsuario != 3) ;
+        while (OpcaoUsuario != 4) ;
         scanner.close();
     }
 }
