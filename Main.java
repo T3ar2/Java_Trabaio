@@ -69,6 +69,7 @@ public class Main {
                             pedidovenda.AlterarVenda();
                         break;
                         case 2:
+                            pedidovenda.ConsultarVenda();
                         break;
                         case 3:
                             pedidovenda.ExcluirVenda();

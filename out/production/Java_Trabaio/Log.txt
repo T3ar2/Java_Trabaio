@@ -124,3 +124,9 @@
 [2025-06-16 13:08:20] usuário admin cadastrou a venda de id 5 no banco de dados.
 [2025-06-16 13:59:40] usuário admin cadastrou a venda de id 6 no banco de dados.
 [2025-06-16 14:42:07] usuário admin cadastrou a venda de id 6 no banco de dados.
+[2025-06-16 15:10:11] usuário admin cadastrou a venda de id 1 no banco de dados.
+[2025-06-16 15:11:50] usuário admin alterou a venda com o id 1.
+[2025-06-16 16:12:07] Usuário admin consultou o pedido de venda de ID 1.
+[2025-06-16 16:18:11] Usuário admin consultou o pedido de venda de ID 1.
+[2025-06-16 16:37:47] Usuário admin consultou o pedido de venda de ID 1.
+[2025-06-16 16:57:33] Usuário admin consultou o pedido de venda de ID 1.

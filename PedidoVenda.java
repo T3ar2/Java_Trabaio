@@ -265,7 +265,98 @@ public class PedidoVenda {
             System.err.println("Erro ao excluir o pedido de venda: " + e.getMessage());
         }
     }
+    public void ConsultarVenda() {
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.print("Digite o ID do pedido de venda que deseja consultar: ");
+        int idBusca = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean encontrado = false;
+        String linhaDoPedido = null;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputVendas.txt"))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                if (linha.startsWith("Id do pedido: " + idBusca + ";")) {
+                    encontrado = true;
+                    linhaDoPedido = linha;
+                    break;
+                }
+            }
+
+            if (encontrado) {
+                System.out.println("\n--- Detalhes do Pedido de Venda ---");
+
+                String[] partes = linhaDoPedido.split(";", -1);
+                String idPedido = partes[0].replace("Id do pedido: ", "").trim();
+                String idCliente = partes[1].replace("Id do Cliente: ", "").trim();
+                String logradouro = partes[2].replace("Logadouro: ", "").trim();
+                String tipoCliente = partes[3].replace("Tipo cliente: ", "").trim();
+                String numeroCasa = partes[4].replace("Número: ", "").trim();
+                String listaProdutosStrCompleta = partes[5].trim();
+                String totalVenda = partes[6].replace("Total: ", "").trim();
+
+                System.out.println("ID do Pedido: " + idPedido + " || ID do Cliente: " + idCliente + " || Tipo de Cliente: " + tipoCliente);
+                System.out.println("Endereço de Entrega: " + logradouro + ", Nº " + numeroCasa);
+
+                System.out.println("--- Produtos no Pedido ---");
+                if (listaProdutosStrCompleta.startsWith("Lista de produtos:")) {
+                    String produtosRaw = listaProdutosStrCompleta.substring("Lista de produtos: ".length()).trim();
+
+
+                    if (produtosRaw.startsWith("[") && produtosRaw.endsWith("]")) {
+                        String produtosLimpos = produtosRaw.substring(1, produtosRaw.length() - 1);
+
+                        Pattern itemPattern = Pattern.compile("\\[(ID:\\d+, Prod:[^,]+, Qtd:\\d+, Preço:R\\$\\d+\\.\\d{2})\\]");
+                        Matcher itemMatcher = itemPattern.matcher(produtosRaw);
+
+                        boolean produtosEncontrados = false;
+                        while (itemMatcher.find()) {
+                            String itemContent = itemMatcher.group(1);
+
+                            String[] itemPartes = itemContent.split(", ");
+
+
+                            String idProd = itemPartes[0].replace("ID:", "").trim();
+                            String nomeProd = itemPartes[1].replace("Prod:", "").trim();
+
+                            System.out.println("[ID:" + idProd + ", " + nomeProd + "]");
+                            produtosEncontrados = true;
+                        }
+
+                        if (!produtosEncontrados) {
+                            System.out.println("  Nenhum produto foi processado ou o formato está incorreto.");
+                        }
+
+                    } else {
+                        System.out.println("  Nenhum produto no pedido ou formato inválido (sem colchetes externos).");
+                    }
+                } else {
+                    System.out.println("  Campo 'Lista de produtos' não encontrado ou vazio.");
+                }
+
+                System.out.println("TOTAL: " + totalVenda);
+                System.out.println("-------------------------------------");
+
+                try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                    String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    logWriter.write("[" + timestamp + "] Usuário admin consultou o pedido de venda de ID " + idBusca + ".");
+                    logWriter.newLine();
+                } catch (IOException e) {
+                    System.err.println("Erro ao gravar o log da consulta: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Nenhum pedido de venda com o ID " + idBusca + " foi encontrado.");
+            }
+
+        } catch (IOException e) {
+            System.err.println("Erro ao ler o arquivo de vendas: " + e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Erro: Formato da linha do pedido inválido no arquivo para o ID " + idBusca + ". Verifique se todos os campos estão presentes e separados por ';'. Detalhes: " + e.getMessage());
+            System.err.println("Linha com problema: " + linhaDoPedido);
+        }
+    }
 
     //=========================================================================
     // --- MÉTODOS AUXILIARES PARA ALTERAÇÃO DE VENDA ---

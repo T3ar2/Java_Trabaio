@@ -1,0 +1,1 @@
+Id do pedido: 1;Id do Cliente: 1;Logadouro: teste Endereço Cliente;Tipo cliente: cliente;Número: 1;Lista de produtos: [ID:2, Prod:Teste produto 2, Qtd:5, Preço:R$4.00], [ID:3, Prod:Teste produto 3, Qtd:3, Preço:R$6.00];Total: R$38.00;
