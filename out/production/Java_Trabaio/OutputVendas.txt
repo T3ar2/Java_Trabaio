@@ -1,2 +1,0 @@
-Id do pedido: 1;Id do Cliente: 1; Logadouro: teste Endereço Cliente; Número: 1;Lista de produto: [Teste produto 2, Teste produto 3];Total: 10.0;
-Id do pedido: 2;Id do Cliente: 1; Logadouro: teste Endereço Cliente; Número: 1;Lista de produto: [Teste produto 1];Total: R$2.0;

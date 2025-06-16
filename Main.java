@@ -66,6 +66,7 @@ public class Main {
                     PedidoVenda pedidovenda = new PedidoVenda();
                     switch(opcao_venda){
                         case 1:
+                            pedidovenda.AlterarVenda();
                         break;
                         case 2:
                         break;
