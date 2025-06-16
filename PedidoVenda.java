@@ -490,22 +490,18 @@ public class PedidoVenda {
 
 
                     if (produtosRaw.startsWith("[") && produtosRaw.endsWith("]")) {
-                        String produtosLimpos = produtosRaw.substring(1, produtosRaw.length() - 1);
-
-                        Pattern itemPattern = Pattern.compile("\\[(ID:\\d+, Prod:[^,]+, Qtd:\\d+, Preço:R\\$\\d+\\.\\d{2})\\]");
+                        // Pattern to capture ID, Prod (name), Qtd (quantity), and Preço (price)
+                        Pattern itemPattern = Pattern.compile("\\[ID:(\\d+), Prod:([^,]+), Qtd:(\\d+), Preço:(R\\$\\d+\\.\\d{2})\\]");
                         Matcher itemMatcher = itemPattern.matcher(produtosRaw);
 
                         boolean produtosEncontrados = false;
                         while (itemMatcher.find()) {
-                            String itemContent = itemMatcher.group(1);
+                            String idProd = itemMatcher.group(1);
+                            String nomeProd = itemMatcher.group(2);
+                            String qtd = itemMatcher.group(3); // Extract quantity
+                            String preco = itemMatcher.group(4); // Extract price
 
-                            String[] itemPartes = itemContent.split(", ");
-
-
-                            String idProd = itemPartes[0].replace("ID:", "").trim();
-                            String nomeProd = itemPartes[1].replace("Prod:", "").trim();
-
-                            System.out.println("[ID:" + idProd + ", " + nomeProd + "]");
+                            System.out.println("  - [ID:" + idProd + ", Prod:" + nomeProd + ", Qtd:" + qtd + ", Preço:" + preco + "]");
                             produtosEncontrados = true;
                         }
 
