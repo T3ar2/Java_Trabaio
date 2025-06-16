@@ -247,4 +247,50 @@ public class PedidoVenda {
         return false;
     }
 
+    public void ExcluirVenda() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite o ID do pedido de venda a ser excluído: ");
+        int idBusca = scanner.nextInt();
+        scanner.nextLine(); // Consumir a nova linha
+
+        boolean encontrado = false;
+        StringBuilder novoConteudo = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("OutputVendas.txt"))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                if (linha.startsWith("Id do pedido: " + idBusca + ";")) {
+                    encontrado = true;
+                    System.out.println("Pedido de venda encontrado: " + linha);
+                    System.out.print("Tem certeza que deseja excluir este pedido? (s para sim e n para não): ");
+                    String confirmacao = scanner.nextLine();
+
+                    if (confirmacao.equalsIgnoreCase("s")) {
+                        try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
+                            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                            logWriter.write("[" + timestamp + "] usuário admin excluiu a venda com o id " + idBusca + ".");
+                            logWriter.newLine();
+                        }
+                        System.out.println("Pedido de venda excluído com sucesso.");
+                    } else {
+                        novoConteudo.append(linha).append(System.lineSeparator());
+                        System.out.println("Exclusão cancelada.");
+                    }
+                } else {
+                    novoConteudo.append(linha).append(System.lineSeparator());
+                }
+            }
+
+            if (encontrado) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("OutputVendas.txt"))) {
+                    writer.write(novoConteudo.toString());
+                }
+            } else {
+                System.out.println("Pedido de venda com ID " + idBusca + " não encontrado.");
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao excluir o pedido de venda: " + e.getMessage());
+        }
+    }
+
 }

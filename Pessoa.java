@@ -301,19 +301,41 @@ public class Pessoa {
                 if (linha.startsWith("Id: " + idBusca + ";")) {
                     encontrado = true;
                     System.out.println("Cliente encontrado: " + linha);
-                    System.out.print("Tem certeza que deseja excluir este cliente? (s para sim e n para não): ");
+                    System.out.print("Tem certeza que deseja excluir este cliente e todos os seus endereços? (s para sim e n para não): ");
                     String confirmacao = scanner.nextLine();
 
-                    if (!confirmacao.equalsIgnoreCase("s")) {
-                        novoConteudo.append(linha).append("\n");
-                        System.out.println("Exclusão cancelada.");
-                    } else {
+                    if (confirmacao.equalsIgnoreCase("s")) {
                         try (BufferedWriter logWriter = new BufferedWriter(new FileWriter("Log.txt", true))) {
                             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                             logWriter.write("[" + timestamp + "] Usuário admin excluiu a pessoa com o id " + idBusca + ".");
                             logWriter.newLine();
                         }
-                        System.out.println("Cadastro excluído com sucesso.");
+
+                        try {
+                            StringBuilder novoConteudoEnderecos = new StringBuilder();
+                            BufferedReader readerEndereco = new BufferedReader(new FileReader("EnderecoOutput.txt"));
+                            String linhaEndereco;
+
+                            while ((linhaEndereco = readerEndereco.readLine()) != null) {
+                                if (!linhaEndereco.startsWith("Cliente Id: " + idBusca + ";")) {
+                                    novoConteudoEnderecos.append(linhaEndereco).append(System.lineSeparator());
+                                }
+                            }
+                            readerEndereco.close();
+
+                            BufferedWriter writerEndereco = new BufferedWriter(new FileWriter("EnderecoOutput.txt"));
+                            writerEndereco.write(novoConteudoEnderecos.toString());
+                            writerEndereco.close();
+
+                        } catch (IOException e) {
+                            System.err.println("Erro ao excluir os endereços associados: " + e.getMessage());
+                        }
+                        
+                        System.out.println("Cadastro e endereços associados foram excluídos com sucesso.");
+
+                    } else {
+                        novoConteudo.append(linha).append("\n");
+                        System.out.println("Exclusão cancelada.");
                     }
                 } else {
                     novoConteudo.append(linha).append("\n");
