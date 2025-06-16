@@ -3,3 +3,4 @@ Id do pedido: 2;Id do Cliente: 1; Logadouro: teste Endereço Cliente; Número: 1
 Id do pedido: 3;Id do Cliente: 1; Logadouro: teste Endereço Cliente; Número: 1;Lista de produto: [Teste produto 1, Teste produto 2];Total: R$6,00;
 Id do pedido: 4;Id do Cliente: 3; Logadouro: Teste endereço ambos; Número: 3;Lista de produtos: [[ID:1, Prod:Teste produto 1, Qtd:2, Preço:R$2,00], [ID:2, Prod:Teste produto 2, Qtd:1, Preço:R$4,00]];Total: R$8,00;
 Id do pedido: 5;Id do Cliente: 3;Logadouro: Teste endereço ambos;Tipo cliente: ambos;Número: 3;Lista de produtos: [[ID:1, Prod:Teste produto 1, Qtd:3, Preço:R$2,00], [ID:3, Prod:Teste produto 3, Qtd:1, Preço:R$6,00]];Total: R$12,00;
+Id do pedido: 6;Id do Cliente: 1;Logadouro: teste Endereço Cliente;Tipo cliente: cliente;Número: 1;Lista de produtos: [ID:1, Prod:Teste produto 1, Qtd:1, Preço:R$2,00], [ID:3, Prod:Teste produto 3, Qtd:2, Preço:R$6,00];Total: R$14,00;

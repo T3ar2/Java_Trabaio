@@ -185,13 +185,21 @@ public class PedidoVenda {
     public void ImprimirCadastroVenda() {
         try (FileWriter fileWriter = new FileWriter("OutputVendas.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            
+            String listaDeProdutosComColchetesDuplos = this.carrinho.toString();
+            String textoFinalFormatado = "";
+
+            if (listaDeProdutosComColchetesDuplos.length() > 2) {
+                textoFinalFormatado = listaDeProdutosComColchetesDuplos.substring(1, listaDeProdutosComColchetesDuplos.length() - 1);
+            }
+
             bufferedWriter.write(
                 "Id do pedido: " + this.idVenda + ";" +
                 "Id do Cliente: " + this.clienteId + ";" +
                 "Logadouro: " + this.logradouro + ";" +
                 "Tipo cliente: " + this.tipoCliente + ";" +
                 "Número: " + this.num_casa + ";" +
-                "Lista de produtos: " + this.carrinho.toString() + ";" +
+                "Lista de produtos: " + textoFinalFormatado + ";" +
                 "Total: R$" + String.format("%.2f", this.total) + ";"
             );
             bufferedWriter.newLine();
